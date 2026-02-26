@@ -1,8 +1,15 @@
 {
 	"devDependencies": {
+		"@stylistic/eslint-plugin": "5.10.0",
 		"@types/node": "25.5.0",
+		"@typescript-eslint/parser": "8.57.0",
+		"eslint": "10.0.3",
+		"eslint-plugin-perfectionist": "5.6.0",
+		"eslint-plugin-unused-imports": "4.4.1",
+		"jiti": "2.6.1",
 		"prettier": "3.8.1",
-		"typescript": "5.9.3"
+		"typescript": "5.9.3",
+		"typescript-eslint": "8.57.0"
 	},
 	"engines": {
 		"node": ">=24.14.0",
@@ -14,6 +21,8 @@
 		"url": "http://git.ztrans.pl:3000/it/template-of-sveltekit-application.git"
 	},
 	"scripts": {
+		"eslint:check": "eslint --max-warnings=0 .",
+		"eslint:fix": "eslint --fix --max-warnings=0 .",
 		"prettier:check": "prettier --check .",
 		"prettier:fix": "prettier --write .",
 		"typescript:check": "tsc"
