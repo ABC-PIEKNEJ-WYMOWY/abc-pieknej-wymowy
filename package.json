@@ -1,0 +1,14 @@
+{
+	"engines": {
+		"node": ">=24.14.0",
+		"npm": ">=11.9.0"
+	},
+	"name": "template-of-sveltekit-application",
+	"repository": {
+		"type": "git",
+		"url": "http://git.ztrans.pl:3000/it/template-of-sveltekit-application.git"
+	},
+	"scripts": {},
+	"type": "module",
+	"version": "0.0.0"
+}
