@@ -1,6 +1,7 @@
 {
 	"devDependencies": {
 		"@types/node": "25.5.0",
+		"prettier": "3.8.1",
 		"typescript": "5.9.3"
 	},
 	"engines": {
@@ -13,6 +14,8 @@
 		"url": "http://git.ztrans.pl:3000/it/template-of-sveltekit-application.git"
 	},
 	"scripts": {
+		"prettier:check": "prettier --check .",
+		"prettier:fix": "prettier --write .",
 		"typescript:check": "tsc"
 	},
 	"type": "module",
