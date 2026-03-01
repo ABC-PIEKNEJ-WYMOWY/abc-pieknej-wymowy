@@ -146,6 +146,16 @@ to automatically fix style linting issues in the codebase where possible.
 
 Tests are using [the native Node.js test runner](https://nodejs.org/api/test.html).
 
+#### Checking
+
+Run
+
+```
+npm run test:check
+```
+
+to perform testing for all tests.
+
 ### TypeScript
 
 [TypeScript](https://www.typescriptlang.org) is used for development.
