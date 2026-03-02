@@ -186,6 +186,18 @@ npm run test:check:system
 
 to perform testing for system tests.
 
+##### Unit
+
+Unit tests are such that they don't build the application and they don't setup any external dependencies before running. They run against the source code directly.
+
+Run
+
+```
+npm run test:check:unit
+```
+
+to perform testing for unit tests.
+
 ### TypeScript
 
 [TypeScript](https://www.typescriptlang.org) is used for development.
