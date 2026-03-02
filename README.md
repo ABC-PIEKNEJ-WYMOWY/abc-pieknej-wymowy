@@ -4,6 +4,7 @@
 
 - .devcontainer - Configuration of [Development Containers](https://containers.dev);
 - [.dockerignore](https://docs.docker.com/reference/dockerfile/#dockerignore-file);
+- [.env](https://nodejs.org/api/environment_variables.html#env-files);
 - .git - Metadata of the [Git](https://git-scm.com) repository;
 - [.gitignore](https://git-scm.com/docs/gitignore);
 - [.prettierignore](https://prettier.io/docs/ignore.html);
@@ -64,7 +65,7 @@
 
 ## Environment variables
 
-The application is configured via [environment variables](https://en.wikipedia.org/wiki/Environment_variable).
+The application is configured via [environment variables](https://en.wikipedia.org/wiki/Environment_variable). You can create a [.env](https://nodejs.org/api/environment_variables.html#env-files) file in the root of the project to set the environment variables.
 
 ### List for building
 
