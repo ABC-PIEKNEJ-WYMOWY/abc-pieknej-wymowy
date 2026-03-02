@@ -156,6 +156,18 @@ npm run test:check
 
 to perform testing for all tests.
 
+##### Integration
+
+Integration tests are such that they don't build the application and they do setup some external dependencies before running. They run against the source code directly.
+
+Run
+
+```
+npm run test:check:integration
+```
+
+to perform testing for integration tests.
+
 ### TypeScript
 
 [TypeScript](https://www.typescriptlang.org) is used for development.
