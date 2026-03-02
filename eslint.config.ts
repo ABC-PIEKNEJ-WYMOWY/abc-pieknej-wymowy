@@ -620,6 +620,12 @@ export default [
 					zones: [
 						{
 							except: [],
+							from: `./!(node_modules|source)/**/*`,
+							message: `The source code should not import non-source code.`,
+							target: `./source/**/!(*.test.ts)`,
+						},
+						{
+							except: [],
 							from: `./!(node_modules|source|testing)/**/*`,
 							message: `The testing code should not import non-source code or non-testing code.`,
 							target: `./testing/**/*`,
