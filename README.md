@@ -148,6 +148,10 @@ npm run stylelint:fix
 
 to automatically fix style linting issues in the codebase where possible.
 
+### Testing
+
+Tests are using [the native Node.js test runner](https://nodejs.org/api/test.html).
+
 ### TypeScript
 
 [TypeScript](https://www.typescriptlang.org) is used for development.
