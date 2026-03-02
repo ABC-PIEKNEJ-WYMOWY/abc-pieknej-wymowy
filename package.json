@@ -42,6 +42,7 @@
 	},
 	"scripts": {
 		"build": "svelte-kit sync && vite build --configLoader=native",
+		"build:.env": "svelte-kit sync && node --env-file='./.env' ./node_modules/.bin/vite build --configLoader=native",
 		"commitlint:check:last": "commitlint --last --strict",
 		"commitlint:check:range": "commitlint --strict",
 		"eslint:check": "svelte-kit sync && eslint --max-warnings=0 .",
@@ -52,13 +53,18 @@
 		"start:build": "node ./build/server/chunks/hooks.server-*.js",
 		"start:build:.env": "node --env-file='./.env' ./build/server/chunks/hooks.server-*.js",
 		"start:development": "vite dev --configLoader=native",
+		"start:development:.env": "node --env-file='./.env' ./node_modules/.bin/vite dev --configLoader=native",
 		"stylelint:check": "stylelint '**/*.{css,scss,svelte}' --max-warnings=0",
 		"stylelint:fix": "stylelint '**/*.{css,scss,svelte}' --fix --max-warnings=0",
 		"sveltekit:check": "svelte-kit sync && svelte-check --fail-on-warnings --tsconfig='./tsconfig.json'",
-		"test:check": "node --experimental-test-coverage --test --test-concurrency=1 --test-coverage-exclude='**/*.test.*' --test-coverage-exclude='hook-for-loading-TypeScript/**/*' --test-coverage-exclude='testing/**/*' --test-coverage-include='**/*' --test-global-setup='./testing/entrypoint.ts' '**/*.test.ts'",
+		"test:check": "node --experimental-test-coverage --test --test-concurrency=1 --test-coverage-exclude='**/*.test.*' --test-coverage-exclude='testing/**/*' --test-coverage-include='**/*' --test-global-setup='./testing/entrypoint.ts' '**/*.test.ts'",
+		"test:check:.env": "node --env-file='./.env' --experimental-test-coverage --test --test-concurrency=1 --test-coverage-exclude='**/*.test.*' --test-coverage-exclude='testing/**/*' --test-coverage-include='**/*' --test-global-setup='./testing/entrypoint.ts' '**/*.test.ts'",
 		"test:check:integration": "node --test --test-concurrency=1 --test-global-setup='./testing/entrypoint.ts' '**/*.integration.test.ts'",
+		"test:check:integration:.env": "node --env-file='./.env' --test --test-concurrency=1 --test-global-setup='./testing/entrypoint.ts' '**/*.integration.test.ts'",
 		"test:check:system": "node --test --test-concurrency=1 --test-global-setup='./testing/entrypoint.ts' '**/*.system.test.ts'",
-		"test:check:unit": "node --test --test-global-setup='./testing/entrypoint.ts' '**/*.unit.test.ts'"
+		"test:check:system:.env": "node --env-file='./.env' --test --test-concurrency=1 --test-global-setup='./testing/entrypoint.ts' '**/*.system.test.ts'",
+		"test:check:unit": "node --test --test-global-setup='./testing/entrypoint.ts' '**/*.unit.test.ts'",
+		"test:check:unit:.env": "node --env-file='./.env' --test --test-global-setup='./testing/entrypoint.ts' '**/*.unit.test.ts'"
 	},
 	"type": "module",
 	"version": "0.0.0"
