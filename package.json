@@ -39,6 +39,7 @@
 		"stylelint:fix": "stylelint '**/*.{css,scss}' --fix --max-warnings=0",
 		"test:check": "node --experimental-test-coverage --test --test-concurrency=1 --test-coverage-exclude='**/*.test.*' --test-coverage-exclude='node_modules/**/*' --test-coverage-exclude='testing/**/*' --test-coverage-include='**/*' '**/*.test.ts'",
 		"test:check:integration": "node --test --test-concurrency=1 '**/*.integration.test.ts'",
+		"test:check:system": "node --test --test-concurrency=1 '**/*.system.test.ts'",
 		"typescript:check": "tsc"
 	},
 	"type": "module",
