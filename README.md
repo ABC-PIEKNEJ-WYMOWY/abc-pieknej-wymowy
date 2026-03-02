@@ -16,6 +16,10 @@
 - [prettier.config.ts](https://prettier.io/docs/configuration) - Configuration of [Prettier](https://prettier.io);
 - [README.md](https://en.wikipedia.org/wiki/README);
 - [release-it.config.ts](https://github.com/release-it/release-it/blob/main/docs/configuration.md#configuration) - Configuration of [release-it](https://github.com/release-it/release-it);
+- source - Source code;
+  - server - Server-only code;
+    - core - Core modules;
+    - instances - Instances of core modules;
 - [stylelint.config.ts](https://stylelint.io/user-guide/configure) - Configuration of [Stylelint](https://stylelint.io);
 - testing - Testing code;
   - core - Core modules;
