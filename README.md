@@ -35,6 +35,10 @@
    environment with all the necessary dependencies and tools;
 2. Connect to the development container;
 
+## Environment variables
+
+The application is configured via [environment variables](https://en.wikipedia.org/wiki/Environment_variable).
+
 ## Developing
 
 ### commitlint
