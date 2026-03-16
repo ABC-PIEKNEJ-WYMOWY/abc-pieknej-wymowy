@@ -1,0 +1,27 @@
+import type {Config} from "release-it";
+export default {
+	git: {
+		commitArgs: [],
+		commitMessage: `release: \${version}`,
+		pushArgs: [],
+		tagArgs: [],
+	},
+	hooks: {},
+	npm: {publish: false},
+	plugins: {
+		"@release-it/conventional-changelog": {
+			ignoreRecommendedBump: false,
+			preset: {
+				header: `# Changelog`,
+				name: `conventionalcommits`,
+				releaseCommitMessageFormat: `release: {{currentTag}}`,
+				types: [
+					{hidden: false, section: `Chores`, type: `chore`},
+					{hidden: false, section: `Features`, type: `feature`},
+					{hidden: false, section: `Releases`, type: `release`},
+				],
+			},
+			strictSemVer: false,
+		},
+	},
+} as const satisfies Config;
