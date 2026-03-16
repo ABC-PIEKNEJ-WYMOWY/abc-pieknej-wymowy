@@ -1,5 +1,7 @@
 {
 	"devDependencies": {
+		"@commitlint/cli": "20.5.0",
+		"@commitlint/types": "20.5.0",
 		"@stylistic/eslint-plugin": "5.10.0",
 		"@types/node": "25.5.0",
 		"@typescript-eslint/parser": "8.57.2",
@@ -22,6 +24,8 @@
 		"url": "http://git.ztrans.pl:3000/it/template-of-sveltekit-application.git"
 	},
 	"scripts": {
+		"commitlint:check:last": "commitlint --last --strict",
+		"commitlint:check:range": "commitlint --strict",
 		"eslint:check": "eslint --max-warnings=0 .",
 		"eslint:fix": "eslint --fix --max-warnings=0 .",
 		"prettier:check": "prettier --check .",
