@@ -6,6 +6,7 @@
 - .git - Metadata of the [Git](https://git-scm.com) repository;
 - [.gitignore](https://git-scm.com/docs/gitignore);
 - [.prettierignore](https://prettier.io/docs/ignore.html);
+- [.stylelintignore](https://stylelint.io/user-guide/ignore-code/#files-entirely);
 - [.vscode](https://code.visualstudio.com/docs/configure/settings#_workspace-settings) - Configuration of [Visual Studio Code](https://code.visualstudio.com);
 - [commitlint.config.ts](https://commitlint.js.org/reference/configuration.html#config-via-file) - Configuration of [commitlint](https://commitlint.js.org);
 - [eslint.config.ts](https://eslint.org/docs/latest/use/configure/configuration-files) - Configuration of [ESLint](https://eslint.org);
@@ -15,6 +16,7 @@
 - [prettier.config.ts](https://prettier.io/docs/configuration) - Configuration of [Prettier](https://prettier.io);
 - [README.md](https://en.wikipedia.org/wiki/README);
 - [release-it.config.ts](https://github.com/release-it/release-it/blob/main/docs/configuration.md#configuration) - Configuration of [release-it](https://github.com/release-it/release-it);
+- [stylelint.config.ts](https://stylelint.io/user-guide/configure) - Configuration of [Stylelint](https://stylelint.io);
 - [tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) - Configuration of [TypeScript](https://www.typescriptlang.org);
 
 ## Development setup
@@ -111,6 +113,30 @@ npm run release-it
 ```
 
 to make a release.
+
+### Stylelint
+
+[Stylelint](https://stylelint.io) is used for style linting.
+
+#### Checking
+
+Run
+
+```
+npm run stylelint:check
+```
+
+to perform style linting.
+
+#### Fixing
+
+Run
+
+```
+npm run stylelint:fix
+```
+
+to automatically fix style linting issues in the codebase where possible.
 
 ### TypeScript
 
