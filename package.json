@@ -69,5 +69,5 @@
 		"test:check:unit:.env": "node --env-file='./.env' --test --test-global-setup='./testing/entrypoint-of-testing.ts' '**/*.unit.test.ts'"
 	},
 	"type": "module",
-	"version": "0.0.0"
+	"version": "1.0.0"
 }
