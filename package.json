@@ -12,6 +12,8 @@
 		"jiti": "2.6.1",
 		"prettier": "3.8.1",
 		"release-it": "19.2.4",
+		"stylelint": "17.4.0",
+		"stylelint-config-html": "1.1.0",
 		"typescript": "5.9.3",
 		"typescript-eslint": "8.57.0"
 	},
@@ -32,6 +34,8 @@
 		"prettier:check": "prettier --check .",
 		"prettier:fix": "prettier --write .",
 		"release-it": "release-it --config='./release-it.config.ts'",
+		"stylelint:check": "stylelint '**/*.{css,scss}' --max-warnings=0",
+		"stylelint:fix": "stylelint '**/*.{css,scss}' --fix --max-warnings=0",
 		"typescript:check": "tsc"
 	},
 	"type": "module",
