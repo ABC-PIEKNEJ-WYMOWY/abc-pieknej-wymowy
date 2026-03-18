@@ -9,7 +9,6 @@ export function createEnvironmentOfSourceFromProcessEnv(
 	processEnv: z.output<typeof schemaForProcessEnvOfSource>,
 ): SupportedEnvironmentOfSource {
 	switch (processEnv.ADAPTER__NAME) {
-		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
 		case `Node`: {
 			const serverOfConfigurationOfEnvironment: ServerOfConfiguration =
 				parseServerOfConfigurationFromProcessEnv(processEnv);
@@ -22,7 +21,6 @@ export function createEnvironmentOfSourceFromProcessEnv(
 			};
 			return environment;
 		}
-		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
 		case `static`: {
 			const environment: WithStaticAdapterEnvironmentOfSource = {
 				configuration: {adapter: {name: `static`}},

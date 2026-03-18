@@ -9,6 +9,7 @@
 - [.stylelintignore](https://stylelint.io/user-guide/ignore-code/#files-entirely);
 - [.svelte-kit](https://svelte.dev/docs/kit/project-structure#Other-files-.svelte-kit);
 - [.vscode](https://code.visualstudio.com/docs/configure/settings#_workspace-settings) - Configuration of [Visual Studio Code](https://code.visualstudio.com);
+- build - Files generated during [the build process](https://svelte.dev/docs/kit/building-your-app);
 - [commitlint.config.ts](https://commitlint.js.org/reference/configuration.html#config-via-file) - Configuration of [commitlint](https://commitlint.js.org);
 - development - Development code;
   - core - Core modules;
@@ -29,14 +30,12 @@
     - hooks.ts - [SvelteKit](https://kit.svelte.dev) hooks;
     - instances - Instances of core modules;
   - routes - [SvelteKit](https://kit.svelte.dev) routes;
-  - server - Server-only code;
-    - core - Core modules;
-    - entrypoint - Module of entrypoint;
-      - entrypoint-of-source.ts - Base entrypoint for the background code to run (shared by concrete entrypoints);
-      - importing-entrypoint - Module for determining and importing the entrypoint to run;
-      - running-entrypoint - Module for running the imported entrypoint;
-    - hooks.ts - [SvelteKit](https://kit.svelte.dev) hooks;
-    - instances - Instances of the core modules;
+  - server - Server-only code; - core - Core modules; - entrypoint - Module of entrypoint; - entrypoint-of-source.ts - Base entrypoint for the background code to run (shared by concrete entrypoints);
+    <<<<<<< HEAD - importing-entrypoint - Module for determining and importing the entrypoint to run; - running-entrypoint - Module for running the imported entrypoint;
+    ======= - concrete-entrypoints - Concrete entrypoints; - build - Entrypoint for the background code to run during running the built application; - development - Entrypoint for the background code to run during running the application in development; - importing-concrete-entrypoint - Module for determining and importing the concrete entrypoint to run;
+    > > > > > > > 8bd84d3 (chore: Add building)
+        - hooks.ts - [SvelteKit](https://kit.svelte.dev) hooks;
+        - instances - Instances of the core modules;
   - static-assets - Static assets to be served by the application;
 - [stylelint.config.ts](https://stylelint.io/user-guide/configure) - Configuration of [Stylelint](https://stylelint.io);
 - [svelte.config.ts](https://svelte.dev/docs/kit/configuration) - [Svelte](https://svelte.dev/) configuration;
@@ -94,6 +93,16 @@ The application is configured via [environment variables](https://en.wikipedia.o
   - `static`: Use [the static adapter](https://kit.svelte.dev/docs/adapter-static);
 
 ## Developing
+
+### Building
+
+Run
+
+```
+npm run build
+```
+
+to build the application. The built application will be placed in the `./build` directory.
 
 ### commitlint
 
@@ -182,6 +191,24 @@ npm run release-it
 to make a release.
 
 ### Starting
+
+#### Build
+
+To start the built application without loading the environment variables from the [.env](https://nodejs.org/api/environment_variables.html#env-files) file, run:
+
+```
+npm run start:build
+```
+
+The built application must already be built as described in [the "Building" section](#building).
+
+##### .env
+
+To start the built application with loading the environment variables from the [.env](https://nodejs.org/api/environment_variables.html#env-files) file, run:
+
+```
+npm run start:build:.env
+```
 
 #### Development
 

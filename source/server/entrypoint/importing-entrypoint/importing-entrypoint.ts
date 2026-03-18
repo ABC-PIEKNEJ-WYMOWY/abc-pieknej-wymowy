@@ -6,12 +6,10 @@ if (appEnvironment.dev) {
 		`../../instances/environment/environmentOfSource.ts`
 	);
 	switch (environment.type) {
-		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
 		case `withNodeAdapter`: {
 			await runEntrypointOfSource(environment);
 			break;
 		}
-		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
 		case `withStaticAdapter`: {
 			break;
 		}
@@ -26,7 +24,6 @@ if (appEnvironment.dev) {
 			`../../instances/environment/environmentOfSource.ts`
 		);
 		switch (environment.type) {
-			/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
 			case `withNodeAdapter`: {
 				await Promise.all([
 					runServer(environment.configuration.server),
@@ -34,7 +31,9 @@ if (appEnvironment.dev) {
 				]);
 				break;
 			}
-			/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
 			case `withStaticAdapter`: {
+				break;
+			}
 		}
 	}
+}

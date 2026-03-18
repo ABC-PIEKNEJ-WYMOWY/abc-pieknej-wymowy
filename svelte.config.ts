@@ -1,7 +1,12 @@
 import type {Config} from "@sveltejs/kit";
+process.loadEnvFile(`./.env`);
+const {environmentOfBuilding: environment} = await import(
+	`./building/instances/environment/environmentOfBuilding.ts`
+);
 export default {
 	compilerOptions: {runes: true},
 	kit: {
+		adapter: environment.adapter,
 		csrf: {trustedOrigins: []},
 		env: {dir: `.`},
 		files: {
