@@ -62,7 +62,7 @@
 		"stylelint:check": "node --env-file-if-exists='./.env' ./node_modules/.bin/stylelint '**/*.{css,scss,svelte}' --max-warnings=0",
 		"stylelint:fix": "node --env-file-if-exists='./.env' ./node_modules/.bin/stylelint '**/*.{css,scss,svelte}' --fix --max-warnings=0",
 		"sveltekit:check": "node --env-file-if-exists='./.env' ./node_modules/.bin/svelte-kit sync && node --env-file-if-exists='./.env' ./node_modules/.bin/svelte-check --fail-on-warnings --tsconfig='./tsconfig.json'",
-		"test:check": "node --env-file-if-exists='./.env' --experimental-test-coverage --test --test-concurrency=1 --test-coverage-exclude='**/*.test.*' --test-coverage-exclude='node_modules/**/*' --test-coverage-exclude='testing/**/*' --test-coverage-include='source/**/*' --test-global-setup='./testing/entrypoint-of-testing.ts' '**/*.test.ts'",
+		"test:check": "node --env-file-if-exists='./.env' --experimental-test-coverage --test --test-concurrency=1 --test-coverage-exclude='**/*.test.*' --test-coverage-exclude='hook-for-loading-TypeScript/**/*' --test-coverage-exclude='node_modules/**/*' --test-coverage-exclude='testing/**/*' --test-coverage-include='source/**/*' --test-global-setup='./testing/entrypoint-of-testing.ts' '**/*.test.ts'",
 		"test:check:integration": "node --env-file-if-exists='./.env' --test --test-concurrency=1 --test-global-setup='./testing/entrypoint-of-testing.ts' '**/*.integration.test.ts'",
 		"test:check:system": "node --env-file-if-exists='./.env' --test --test-concurrency=1 --test-global-setup='./testing/entrypoint-of-testing.ts' '**/*.system.test.ts'",
 		"test:check:unit": "node --env-file-if-exists='./.env' --test --test-global-setup='./testing/entrypoint-of-testing.ts' '**/*.unit.test.ts'"

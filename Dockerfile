@@ -16,7 +16,7 @@ WORKDIR /home/builder/template-of-sveltekit-application
 USER builder
 COPY --chown=builder:builder . .
 RUN npm clean-install
-ENV NODE_OPTIONS=""
+ENV NODE_OPTIONS="--import=./hook-for-loading-TypeScript/entrypoint-of-hook-for-loading-TypeScript.ts"
 ENV ADAPTER__NAME="Node"
 ARG HOSTING__BASE_PATH
 ENV HOSTING__BASE_PATH=${HOSTING__BASE_PATH}
@@ -37,10 +37,11 @@ RUN cp -r /tmp/node-v${NODE_JS__VERSION}-linux-x64/* /usr/local/
 RUN rm -rf /tmp/node.tar.xz /tmp/node-v${NODE_JS__VERSION}-linux-x64
 WORKDIR /home/runner/template-of-sveltekit-application
 COPY --chown=runner:runner --from=building /home/builder/template-of-sveltekit-application/build ./build
+COPY --chown=runner:runner --from=building /home/builder/template-of-sveltekit-application/hook-for-loading-TypeScript ./hook-for-loading-TypeScript
 COPY --chown=runner:runner --from=building /home/builder/template-of-sveltekit-application/package-lock.json ./package-lock.json
 COPY --chown=runner:runner --from=building /home/builder/template-of-sveltekit-application/package.json ./package.json
 RUN npm clean-install --omit=dev
 USER runner
-ENV NODE_OPTIONS=""
+ENV NODE_OPTIONS="--import=./hook-for-loading-TypeScript/entrypoint-of-hook-for-loading-TypeScript.ts"
 ENV ADAPTER__NAME="Node"
 ENTRYPOINT ["npm", "run", "start:build"]
