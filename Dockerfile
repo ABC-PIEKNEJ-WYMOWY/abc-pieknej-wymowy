@@ -16,7 +16,7 @@ WORKDIR /home/builder/template-of-sveltekit-application
 USER builder
 COPY --chown=builder:builder . .
 RUN npm clean-install
-ENV NODE_OPTIONS=""
+ENV NODE_OPTIONS="--import=./hook-for-loading-TypeScript/entrypoint-of-hook-for-loading-TypeScript.ts"
 ENV ADAPTER__NAME="Node"
 RUN npm run build
 ARG DEBIAN__DOCKER_IMAGE__TAG__DATE
@@ -39,6 +39,6 @@ COPY --chown=runner:runner --from=building /home/builder/template-of-sveltekit-a
 COPY --chown=runner:runner --from=building /home/builder/template-of-sveltekit-application/package.json ./package.json
 RUN npm clean-install --omit=dev
 USER runner
-ENV NODE_OPTIONS=""
+ENV NODE_OPTIONS="--import=./hook-for-loading-TypeScript/entrypoint-of-hook-for-loading-TypeScript.ts"
 ENV ADAPTER__NAME="Node"
 ENTRYPOINT ["npm", "run", "start:build"]
