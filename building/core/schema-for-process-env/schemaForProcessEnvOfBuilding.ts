@@ -1,14 +1,6 @@
 import {z} from "zod";
 export const schemaForProcessEnvOfBuilding = z.intersection(
 	z.union([
-		z.object({
-			ADAPTER__NAME: z.literal(``).transform<null>(function transform(
-				name: ``,
-				context,
-			): null {
-				return null;
-			}),
-		}),
 		z.object({ADAPTER__NAME: z.literal(`Node`)}),
 		z.object({ADAPTER__NAME: z.literal(`static`)}),
 	]),

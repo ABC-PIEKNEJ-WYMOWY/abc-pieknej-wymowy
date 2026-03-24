@@ -15,6 +15,8 @@
 - development - Development code;
   - core - Core modules;
   - instances - Instances of the core modules;
+- [Dockerfile](https://docs.docker.com/build/concepts/dockerfile/);
+- Dockerfile.system.test.ts;
 - [eslint.config.ts](https://eslint.org/docs/latest/use/configure/configuration-files) - Configuration of [ESLint](https://eslint.org);
 - node_modules - [Node.js](https://nodejs.org) dependencies;
 - [package-lock.json](https://docs.npmjs.com/cli/v7/configuring-npm/package-lock-json) - [npm](https://www.npmjs.com) lock;
@@ -94,6 +96,9 @@ The application is configured via [environment variables](https://en.wikipedia.o
   - `static`: Use [the static adapter](https://kit.svelte.dev/docs/adapter-static);
 
 ### List for testing
+
+- `DEBIAN__DOCKER_IMAGE__TAG__DATE`: A part of the Debian Docker image tag to use. This is a date in the format of `YYYYMMDD`;
+- `NODE_JS__VERSION`: The version of Node.js to install;
 
 ## Developing
 
@@ -320,3 +325,22 @@ to perform testing for unit tests.
 ### TypeScript
 
 [TypeScript](https://www.typescriptlang.org) is used for development.
+
+## Production setup
+
+For production, you can use Docker to containerize and run the application.
+
+1. Prepare the Docker image's build arguments:
+   - `HOSTING__BASE_PATH`: Base path under which the application is hosted. Use an empty string for root hosting, or a value that starts with `/` such as `/app`.
+   - `DEBIAN__DOCKER_IMAGE__TAG__DATE`: A part of the Debian Docker image tag to use. This is a date in the format of `YYYYMMDD`. You can find the available tags on the [Debian Docker Hub page](https://hub.docker.com/_/debian).
+   - `NODE_JS__VERSION`: The version of Node.js to install in the Docker image.
+2. Build the Docker image using the provided `./Dockerfile` while being in the project's root directory:
+   ```bash
+   docker build \
+    --build-arg HOSTING__BASE_PATH=${HOSTING__BASE_PATH} \
+   	--build-arg DEBIAN__DOCKER_IMAGE__TAG__DATE=${DEBIAN__DOCKER_IMAGE__TAG__DATE} \
+   	--build-arg NODE_JS__VERSION=${NODE_JS__VERSION} \
+   	--tag template-of-sveltekit-application:$(npm pkg get version | tr -d '"') \
+   	.
+   ```
+3. Run the built Docker image.

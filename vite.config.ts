@@ -11,7 +11,7 @@ const configOfVite = defineConfig(async function determineConfig(
 				environmentOfDevelopment: environment,
 			}: {readonly environmentOfDevelopment: EnvironmentOfDevelopment} =
 				await import(
-					`./development/instances/environment/environmentOfDevelopment.ts`
+					/* @vite-ignore */ `./development/instances/environment/environmentOfDevelopment.ts`
 				);
 			return {
 				build: {rolldownOptions: {external: [], treeshake: false}},
