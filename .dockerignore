@@ -1,0 +1,8 @@
+/**/*
+!/building
+!/package-lock.json
+!/package.json
+!/source
+!/svelte.config.ts
+!/vite.config.ts
+/source/**/*.test.ts

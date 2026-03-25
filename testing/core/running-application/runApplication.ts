@@ -11,7 +11,13 @@ export async function runApplication(
 			SERVER__BIND__ADDRESS: `::`,
 			SERVER__BIND__PORT__NUMBER: numberOfPortOfBindOfServer.toString(10),
 			SERVER__BIND__PORT__TLS__IS_ENABLED: `no`,
-		} satisfies z.input<typeof schemaForProcessEnvOfSource>)
+		} satisfies Omit<
+			Exclude<
+				z.input<typeof schemaForProcessEnvOfSource>,
+				{readonly ADAPTER__NAME: `static`}
+			>,
+			`ADAPTER__NAME`
+		>)
 		.withExposedPorts(numberOfPortOfBindOfServer)
 		.withStartupTimeout(600000)
 		.withWaitStrategy(Wait.forListeningPorts())

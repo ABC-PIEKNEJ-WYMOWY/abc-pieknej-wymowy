@@ -1,5 +1,6 @@
 import type {ServerOfConfiguration} from "../configuration/server/ServerOfConfiguration.ts";
 import {createServer} from "./creating/createServer.ts";
+import {determineHostPartOfUrl} from "./determining-host-part-of-URL/determineHostPartOfUrl.ts";
 import {determineMessageOfProtocol} from "./determining-messsage-of-protocol/determineMessageOfProtocol.ts";
 import {determineProtocolPartOfUrl} from "./determining-protocol-part-of-URL/determineProtocolPartOfUrl.ts";
 export async function runServer(
@@ -15,6 +16,9 @@ export async function runServer(
 			const messageOfProtocol = determineMessageOfProtocol(
 				configuration.bind.port.tls,
 			) satisfies string;
+			const hostPartOfUrl = determineHostPartOfUrl(
+				configuration.bind.address,
+			) satisfies string;
 			const protocolPartOfUrl = determineProtocolPartOfUrl(
 				configuration.bind.port.tls,
 			) satisfies string;
@@ -23,7 +27,7 @@ export async function runServer(
 			) satisfies string;
 			console.warn(
 				`The ${messageOfProtocol} server is listening.
-URL: ${protocolPartOfUrl}://${configuration.bind.address}:${numberOfPortAsString}`,
+URL: ${protocolPartOfUrl}://${hostPartOfUrl}:${numberOfPortAsString}`,
 			);
 			return;
 		});

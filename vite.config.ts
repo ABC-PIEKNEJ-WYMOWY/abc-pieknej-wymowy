@@ -7,12 +7,12 @@ export default defineConfig(async function determineConfig(
 	const svelteKitPlugins: Plugin<unknown>[] = await sveltekit();
 	switch (env.mode) {
 		case `development`: {
-			process.loadEnvFile(`./.env`);
 			const {
 				environmentOfDevelopment: environment,
 			}: {readonly environmentOfDevelopment: EnvironmentOfDevelopment} =
 				await import(
-					`./development/instances/environment/environmentOfDevelopment.ts`
+					/* eslint-disable-next-line no-inline-comments */
+					/* @vite-ignore */ `./development/instances/environment/environmentOfDevelopment.ts`
 				);
 			return {
 				build: {rolldownOptions: {external: [], treeshake: false}},

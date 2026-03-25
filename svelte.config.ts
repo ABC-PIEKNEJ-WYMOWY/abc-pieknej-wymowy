@@ -1,5 +1,4 @@
 import type {Config} from "@sveltejs/kit";
-process.loadEnvFile(`./.env`);
 const {environmentOfBuilding: environment} = await import(
 	`./building/instances/environment/environmentOfBuilding.ts`
 );
