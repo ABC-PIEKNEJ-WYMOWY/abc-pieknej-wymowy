@@ -1,6 +1,6 @@
 import type {Config} from "stylelint";
 export default {
-	extends: [`stylelint-config-html/html`],
+	extends: [`stylelint-config-html/html`, `stylelint-config-html/svelte`],
 	rules: {
 		"alpha-value-notation": [`number`, {exceptProperties: []}],
 		"annotation-no-unknown": [true, {ignoreAnnotations: []}],

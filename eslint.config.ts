@@ -4,14 +4,199 @@ import typescriptParser from "@typescript-eslint/parser";
 import type {Linter} from "eslint";
 import {importX} from "eslint-plugin-import-x";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
+import sveltePlugin from "eslint-plugin-svelte";
 import unusedImportsPlugin from "eslint-plugin-unused-imports";
+import svelteParser from "svelte-eslint-parser";
 export default [
 	{
 		files: [`./**/*.js`, `./**/*.ts`],
 		languageOptions: {
 			parser: typescriptParser,
-			parserOptions: {extraFileExtensions: [], project: `./tsconfig.json`},
+			parserOptions: {
+				extraFileExtensions: [`svelte`],
+				project: `./tsconfig.json`,
+			},
 			sourceType: `module`,
+		},
+		rules: {
+			"@stylistic/no-multiple-empty-lines": [
+				`warn`,
+				{max: 0, maxBOF: 0, maxEOF: 0},
+			],
+			"no-inner-declarations": [
+				`warn`,
+				`both`,
+				{blockScopedFunctions: `disallow`},
+			],
+		},
+	},
+	{
+		files: [`./**/*.svelte`],
+		languageOptions: {
+			parser: svelteParser,
+			parserOptions: {
+				extraFileExtensions: [`svelte`],
+				parser: typescriptParser,
+				project: `./tsconfig.json`,
+				sourceType: `module`,
+			},
+			sourceType: `module`,
+		},
+		plugins: {"svelte": sveltePlugin},
+		rules: {
+			"svelte/block-lang": [
+				`warn`,
+				{
+					enforceScriptPresent: true,
+					enforceStylePresent: true,
+					script: [`ts`],
+					style: `scss`,
+				},
+			],
+			"svelte/button-has-type": [
+				`warn`,
+				{button: true, reset: true, submit: true},
+			],
+			"svelte/comment-directive": [
+				`warn`,
+				{reportUnusedDisableDirectives: true},
+			],
+			"svelte/consistent-selector-style": [
+				`warn`,
+				{checkGlobal: true, style: [`type`, `id`, `class`]},
+			],
+			"svelte/derived-has-same-inputs-outputs": [`warn`],
+			"svelte/experimental-require-slot-types": [`warn`],
+			"svelte/html-closing-bracket-new-line": [
+				`warn`,
+				{
+					multiline: `never`,
+					selfClosingTag: {multiline: `never`, singleline: `never`},
+					singleline: `never`,
+				},
+			],
+			"svelte/html-self-closing": [`warn`, `html`],
+			"svelte/indent": [
+				`warn`,
+				{
+					alignAttributesVertically: false,
+					ignoredNodes: [],
+					indent: `tab`,
+					switchCase: 1,
+				},
+			],
+			"svelte/infinite-reactive-loop": [`warn`],
+			"svelte/mustache-spacing": [
+				`warn`,
+				{
+					attributesAndProps: `never`,
+					directiveExpressions: `never`,
+					tags: {closingBrace: `never`, openingBrace: `never`},
+					textExpressions: `never`,
+				},
+			],
+			"svelte/no-add-event-listener": [`warn`],
+			"svelte/no-at-debug-tags": [`warn`],
+			"svelte/no-at-html-tags": [`warn`],
+			"svelte/no-dom-manipulating": [`warn`],
+			"svelte/no-dupe-else-if-blocks": [`warn`],
+			"svelte/no-dupe-on-directives": [`warn`],
+			"svelte/no-dupe-style-properties": [`warn`],
+			"svelte/no-dupe-use-directives": [`warn`],
+			"svelte/no-export-load-in-svelte-module-in-kit-pages": [`warn`],
+			"svelte/no-ignored-unsubscribe": [`warn`],
+			"svelte/no-immutable-reactive-statements": [`warn`],
+			"svelte/no-inline-styles": [`warn`, {allowTransitions: false}],
+			"svelte/no-inner-declarations": [
+				`warn`,
+				`both`,
+				{blockScopedFunctions: `disallow`},
+			],
+			"svelte/no-inspect": [`warn`],
+			"svelte/no-navigation-without-resolve": [
+				`warn`,
+				{
+					ignoreGoto: false,
+					ignoreLinks: false,
+					ignorePushState: false,
+					ignoreReplaceState: false,
+				},
+			],
+			"svelte/no-not-function-handler": [`warn`],
+			"svelte/no-object-in-text-mustaches": [`warn`],
+			"svelte/no-raw-special-elements": [`warn`],
+			"svelte/no-reactive-functions": [`warn`],
+			"svelte/no-reactive-literals": [`warn`],
+			"svelte/no-reactive-reassign": [`warn`, {props: true}],
+			"svelte/no-shorthand-style-property-overrides": [`warn`],
+			"svelte/no-spaces-around-equal-signs-in-attribute": [`warn`],
+			"svelte/no-store-async": [`warn`],
+			"svelte/no-svelte-internal": [`warn`],
+			"svelte/no-target-blank": [
+				`warn`,
+				{allowReferrer: false, enforceDynamicLinks: `always`},
+			],
+			"svelte/no-top-level-browser-globals": [`warn`],
+			"svelte/no-trailing-spaces": [
+				`warn`,
+				{ignoreComments: false, skipBlankLines: false},
+			],
+			"svelte/no-unknown-style-directive-property": [
+				`warn`,
+				{ignorePrefixed: false},
+			],
+			"svelte/no-unnecessary-state-wrap": [
+				`warn`,
+				{additionalReactiveClasses: [], allowReassign: false},
+			],
+			"svelte/no-unused-class-name": [`warn`, {allowedClassNames: []}],
+			"svelte/no-unused-props": [
+				`warn`,
+				{
+					allowUnusedNestedProperties: false,
+					checkImportedTypes: true,
+					ignorePropertyPatterns: [],
+					ignoreTypePatterns: [],
+				},
+			],
+			"svelte/no-unused-svelte-ignore": [`warn`],
+			"svelte/no-useless-children-snippet": [`warn`],
+			"svelte/no-useless-mustaches": [
+				`warn`,
+				{ignoreIncludesComment: false, ignoreStringEscape: false},
+			],
+			"svelte/prefer-class-directive": [`warn`, {prefer: `always`}],
+			"svelte/prefer-const": [
+				`warn`,
+				{
+					additionalProperties: false,
+					destructuring: `any`,
+					excludedRunes: [],
+					ignoreReadBeforeAssign: false,
+				},
+			],
+			"svelte/prefer-destructured-store-props": [`warn`],
+			"svelte/prefer-style-directive": [`warn`],
+			"svelte/prefer-svelte-reactivity": [`warn`],
+			"svelte/prefer-writable-derived": [`warn`],
+			"svelte/require-each-key": [`warn`],
+			"svelte/require-event-dispatcher-types": [`warn`],
+			"svelte/require-optimized-style-attribute": [`warn`],
+			"svelte/require-store-callbacks-use-set-param": [`warn`],
+			"svelte/require-store-reactive-access": [`warn`],
+			"svelte/require-stores-init": [`warn`],
+			"svelte/shorthand-attribute": [`warn`, {prefer: `never`}],
+			"svelte/shorthand-directive": [`warn`, {prefer: `never`}],
+			"svelte/sort-attributes": [
+				`warn`,
+				{order: [{match: [`/^.+$/u`], sort: `alphabetical`}]},
+			],
+			"svelte/spaced-html-comment": [`warn`, `always`],
+			"svelte/system": [`warn`],
+			"svelte/valid-compile": [`warn`, {ignoreWarnings: false}],
+			"svelte/valid-each-key": [`warn`],
+			"svelte/valid-prop-names-in-kit-pages": [`warn`],
+			"svelte/valid-style-parse": [`warn`],
 		},
 	},
 	{
@@ -84,10 +269,6 @@ export default [
 			"@stylistic/no-mixed-operators": [
 				`warn`,
 				{allowSamePrecedence: false, groups: []},
-			],
-			"@stylistic/no-multiple-empty-lines": [
-				`warn`,
-				{max: 0, maxBOF: 0, maxEOF: 0},
 			],
 			"@stylistic/padding-line-between-statements": [
 				`warn`,
@@ -320,7 +501,7 @@ export default [
 			"@typescript-eslint/no-shadow": [
 				`warn`,
 				{
-					allow: [],
+					allow: [`Plugin`, `Element`],
 					builtinGlobals: true,
 					hoist: `all`,
 					ignoreFunctionTypeParameterNameValueShadow: false,
@@ -566,11 +747,6 @@ export default [
 			"import-x/default": [`error`],
 			"import-x/export": [`warn`],
 			"import-x/exports-last": [`warn`],
-			"import-x/extensions": [
-				`warn`,
-				`always`,
-				{checkTypeImports: true, fix: true, ignorePackages: true, pattern: {}},
-			],
 			"import-x/first": [`warn`],
 			"import-x/imports-first": [`warn`],
 			"import-x/named": [`error`],
@@ -620,6 +796,12 @@ export default [
 					zones: [
 						{
 							except: [],
+							from: `./!(node_modules|development)/**/*`,
+							message: `The development code should not import non-development code.`,
+							target: `./development/**/*`,
+						},
+						{
+							except: [],
 							from: `./!(node_modules|source)/**/*`,
 							message: `The source code should not import non-source code.`,
 							target: `./source/**/!(*.test.ts)`,
@@ -641,7 +823,6 @@ export default [
 			],
 			"import-x/no-self-import": [`warn`],
 			"import-x/no-unassigned-import": [`warn`, {allow: []}],
-			"import-x/no-unresolved": [`error`, {}],
 			"import-x/no-useless-path-segments": [`warn`, {noUselessIndex: true}],
 			"logical-assignment-operators": [`warn`, `never`],
 			"max-classes-per-file": [`warn`, {ignoreExpressions: false, max: 1}],
@@ -1214,5 +1395,5 @@ export default [
 		files: [`./stylelint.config.ts`],
 		rules: {"import-x/no-default-export": [`off`]},
 	},
-	{ignores: [`./.git`, `./node_modules`]},
+	{ignores: [`./.git`, `./.svelte-kit`, `./node_modules`]},
 ] as const satisfies readonly Linter.Config[];
