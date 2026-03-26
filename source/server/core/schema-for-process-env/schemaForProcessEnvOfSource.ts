@@ -37,4 +37,5 @@ export const schemaForProcessEnvOfSource = z.union([
 			]),
 		),
 	),
+	z.object({ADAPTER__NAME: z.literal(`static`)}),
 ]);

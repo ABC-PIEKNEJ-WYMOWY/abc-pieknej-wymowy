@@ -2,4 +2,5 @@ import {nameOfAdapterAtBuildingTime} from "./name-of-adapter/nameOfAdapterAtBuil
 export const {[nameOfAdapterAtBuildingTime]: idOfAdapterAtBuildingTime} = {
 	"": null,
 	"Node": `node`,
+	"static": `static`,
 } as const;
