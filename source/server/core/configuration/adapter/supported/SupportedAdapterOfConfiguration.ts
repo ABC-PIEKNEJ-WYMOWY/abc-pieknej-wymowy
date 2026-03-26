@@ -1,2 +1,5 @@
 import type {NodeAdapterOfConfiguration} from "../implementations/Node/NodeAdapterOfConfiguration.ts";
-export type SupportedAdapterOfConfiguration = NodeAdapterOfConfiguration;
+import type {StaticAdapterOfConfiguration} from "../implementations/static/StaticAdapterOfConfiguration.ts";
+export type SupportedAdapterOfConfiguration =
+	| NodeAdapterOfConfiguration
+	| StaticAdapterOfConfiguration;

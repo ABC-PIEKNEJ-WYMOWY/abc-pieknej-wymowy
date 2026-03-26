@@ -2,6 +2,7 @@ import {parseServerOfConfigurationFromProcessEnv} from "../../configuration/serv
 import type {ServerOfConfiguration} from "../../configuration/server/ServerOfConfiguration.ts";
 import type {schemaForProcessEnvOfSource} from "../../schema-for-process-env/schemaForProcessEnvOfSource.ts";
 import type {WithNodeAdapterEnvironmentOfSource} from "../implementations/with-Node-adapter/WithNodeAdapterEnvironmentOfSource.ts";
+import type {WithStaticAdapterEnvironmentOfSource} from "../implementations/with-static-adapter/WithStaticAdapterEnvironmentOfSource.ts";
 import type {SupportedEnvironmentOfSource} from "../supported/SupportedEnvironmentOfSource.ts";
 import type {z} from "zod";
 export function createEnvironmentOfSourceFromProcessEnv(
@@ -18,6 +19,14 @@ export function createEnvironmentOfSourceFromProcessEnv(
 					server: serverOfConfigurationOfEnvironment,
 				},
 				type: `withNodeAdapter`,
+			};
+			return environment;
+		}
+		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
+		case `static`: {
+			const environment: WithStaticAdapterEnvironmentOfSource = {
+				configuration: {adapter: {name: `static`}},
+				type: `withStaticAdapter`,
 			};
 			return environment;
 		}

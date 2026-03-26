@@ -11,6 +11,10 @@ if (appEnvironment.dev) {
 			await runEntrypointOfSource(environment);
 			break;
 		}
+		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
+		case `withStaticAdapter`: {
+			break;
+		}
 	}
 } else {
 	if (appEnvironment.building) {
@@ -30,6 +34,7 @@ if (appEnvironment.dev) {
 				]);
 				break;
 			}
+			/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
+			case `withStaticAdapter`: {
 		}
 	}
-}
