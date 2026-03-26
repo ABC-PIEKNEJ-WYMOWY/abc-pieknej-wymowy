@@ -7,6 +7,5 @@ export const schemaForProcessEnvOfSource = z.intersection(
 			z.object({ADAPTER__NAME: z.literal(`Node`)}),
 			schemaForProcessEnvWithServer,
 		),
-		z.object({ADAPTER__NAME: z.literal(`static`)}),
 	]),
 );

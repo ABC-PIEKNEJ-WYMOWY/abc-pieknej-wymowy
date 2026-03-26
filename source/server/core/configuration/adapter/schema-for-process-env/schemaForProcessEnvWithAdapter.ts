@@ -1,2 +1,4 @@
 import {z} from "zod";
-export const schemaForProcessEnvWithAdapter = z.union([]);
+export const schemaForProcessEnvWithAdapter = z.union([
+	z.object({ADAPTER__NAME: z.literal(`Node`)}),
+]);

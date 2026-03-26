@@ -1,0 +1,36 @@
+import type {ServerOfConfiguration} from "../configuration/server/ServerOfConfiguration.ts";
+import {createServer} from "./creating/createServer.ts";
+import {determineMessageOfProtocol} from "./determining-messsage-of-protocol/determineMessageOfProtocol.ts";
+import {determineProtocolPartOfUrl} from "./determining-protocol-part-of-URL/determineProtocolPartOfUrl.ts";
+export async function runServer(
+	configuration: ServerOfConfiguration,
+): Promise<void> {
+	const server = await createServer(configuration.bind.port.tls);
+	await new Promise<void>(function executePromise(resolve): void {
+		server.once(`close`, function handleClose(): void {
+			resolve();
+			return;
+		});
+		server.once(`listening`, function handleListening(): void {
+			const messageOfProtocol = determineMessageOfProtocol(
+				configuration.bind.port.tls,
+			) satisfies string;
+			const protocolPartOfUrl = determineProtocolPartOfUrl(
+				configuration.bind.port.tls,
+			) satisfies string;
+			const numberOfPortAsString = configuration.bind.port.number.toString(
+				10,
+			) satisfies string;
+			console.warn(
+				`The ${messageOfProtocol} server is listening.
+URL: ${protocolPartOfUrl}://${configuration.bind.address}:${numberOfPortAsString}`,
+			);
+			return;
+		});
+		server.listen({
+			host: configuration.bind.address,
+			port: configuration.bind.port.number,
+		});
+		return;
+	});
+}
