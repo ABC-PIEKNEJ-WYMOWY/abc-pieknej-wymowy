@@ -64,6 +64,7 @@ The application is configured via [environment variables](https://en.wikipedia.o
 ### List for building
 
 - `ADAPTER__NAME`: The name of the adapter to use. The following values are possible:
+  - `Node`: Use [the Node.js adapter](https://svelte.dev/docs/kit/adapter-node);
 - `HOSTING__BASE_PATH`: Base path under which the application is hosted. Use an empty string for root hosting, or a value that starts with `/` such as `/app`;
 
 ### List for development
@@ -80,6 +81,15 @@ The application is configured via [environment variables](https://en.wikipedia.o
 ### List for source
 
 - `ADAPTER__NAME`: The name of the adapter to use. The following values are possible:
+  - `Node`: Use [the Node.js adapter](https://svelte.dev/docs/kit/adapter-node). Then you must also set the following variables:
+    - `SERVER__BIND__ADDRESS`: Address/interface the internal HTTP server should bind to;
+    - `SERVER__BIND__PORT__NUMBER`: Port that the internal HTTP server listens on;
+    - `SERVER__BIND__PORT__TLS__IS_ENABLED`: Whether the internal HTTP server uses TLS. The following values are possible:
+      - `no`: TLS is disabled;
+      - `yes`: TLS is enabled. Then you must also set the following variables:
+        - `SERVER__BIND__PORT__TLS__INTERMEDIATE_CA__CERTIFICATE` - The certificate of the intermediate CA;
+        - `SERVER__BIND__PORT__TLS__SERVER__CERTIFICATE` - The certificate of the server;
+        - `SERVER__BIND__PORT__TLS__SERVER__PRIVATE_KEY` - The private key of the server;
 
 ### List for testing
 

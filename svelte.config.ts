@@ -6,7 +6,6 @@ const {environmentOfBuilding: environment} = await import(
 export default {
 	compilerOptions: {runes: true},
 	kit: {
-		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
 		...(environment.adapter === null ? {} : {adapter: environment.adapter}),
 		csrf: {trustedOrigins: []},
 		env: {dir: `.`},
