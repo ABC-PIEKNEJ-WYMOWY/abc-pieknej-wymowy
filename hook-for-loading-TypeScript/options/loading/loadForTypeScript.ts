@@ -29,7 +29,7 @@ export function loadForTypeScript(
 		return output;
 	} else {
 		const sourceOfOutputWithoutTypes: string = stripTypeScriptTypes(
-			// eslint-disable-next-line @typescript-eslint/no-base-to-string
+			/* eslint-disable-next-line @typescript-eslint/no-base-to-string */
 			output.source.toString(),
 		);
 		return {

@@ -201,7 +201,7 @@ export default [
 	{
 		plugins: {
 			"@stylistic": stylisticPlugin,
-			// @ts-expect-error
+			/* @ts-expect-error */
 			"@typescript-eslint": typescriptPlugin,
 			"perfectionist": perfectionistPlugin,
 			"unusedImports": unusedImportsPlugin,
@@ -365,6 +365,14 @@ export default [
 			],
 			"@typescript-eslint/naming-convention": [
 				`warn`,
+				{
+					format: [],
+					modifiers: [],
+					prefix: [],
+					selector: [`objectLiteralMethod`, `objectLiteralProperty`],
+					suffix: [],
+					types: [],
+				},
 				{
 					format: [`camelCase`],
 					leadingUnderscore: `forbid`,
@@ -798,7 +806,6 @@ export default [
 			],
 			"no-implicit-globals": [`warn`, {lexicalBindings: false}],
 			"no-import-assign": [`error`],
-			"no-inline-comments": [`warn`, {}],
 			"no-inner-declarations": [
 				`warn`,
 				`both`,

@@ -15,7 +15,6 @@ export async function createServer(
 	*/
 	const {handler: handler}: {readonly handler: http.RequestListener} =
 		await import(
-			/* eslint-disable-next-line no-inline-comments */
 			/* @vite-ignore */ `${dirname(fileURLToPath(import.meta.url))}/../../handler.js`
 		);
 	const server: http.Server = await determineServer(configuration, handler);

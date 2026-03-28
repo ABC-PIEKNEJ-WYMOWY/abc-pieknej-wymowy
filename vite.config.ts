@@ -11,7 +11,6 @@ export default defineConfig(async function determineConfig(
 				environmentOfDevelopment: environment,
 			}: {readonly environmentOfDevelopment: EnvironmentOfDevelopment} =
 				await import(
-					/* eslint-disable-next-line no-inline-comments */
 					/* @vite-ignore */ `./development/instances/environment/environmentOfDevelopment.ts`
 				);
 			return {

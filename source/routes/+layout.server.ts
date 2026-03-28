@@ -1,7 +1,8 @@
-import {environmentOfBuilding} from "../../building/instances/environment/environmentOfBuilding.ts";
+import {nameOfAdapterAtBuildingTime} from "../nameOfAdapterAtBuildingTime.ts";
 export const csr = true as const;
-export const {
-	configuration: {shouldPrerender: prerender},
-} = environmentOfBuilding;
+export const {[nameOfAdapterAtBuildingTime]: prerender} = {
+	"Node": false,
+	"static": true,
+};
 export const ssr = true as const;
 export const trailingSlash = `never` as const;
