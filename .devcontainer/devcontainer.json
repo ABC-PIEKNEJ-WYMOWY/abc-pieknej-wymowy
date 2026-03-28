@@ -26,9 +26,9 @@
 	"remoteEnv": {},
 	"remoteUser": "developer",
 	"securityOpt": [],
-	"service": "template-of-sveltekit-application",
+	"service": "abc-pieknej-wymowy",
 	"shutdownAction": "stopCompose",
 	"updateRemoteUserUID": true,
 	"userEnvProbe": "none",
-	"workspaceFolder": "/home/developer/template-of-sveltekit-application"
+	"workspaceFolder": "/home/developer/abc-pieknej-wymowy"
 }
