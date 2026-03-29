@@ -10,6 +10,7 @@
 - [.stylelintignore](https://stylelint.io/user-guide/ignore-code/#files-entirely);
 - [.svelte-kit](https://svelte.dev/docs/kit/project-structure#Other-files-.svelte-kit);
 - [.vscode](https://code.visualstudio.com/docs/configure/settings#_workspace-settings) - Configuration of [Visual Studio Code](https://code.visualstudio.com);
+- build - Files generated during [the build process](https://svelte.dev/docs/kit/building-your-app);
 - [commitlint.config.ts](https://commitlint.js.org/reference/configuration.html#config-via-file) - Configuration of [commitlint](https://commitlint.js.org);
 - development - Development code;
   - core - Core modules;
@@ -60,6 +61,11 @@
 
 The application is configured via [environment variables](https://en.wikipedia.org/wiki/Environment_variable).
 
+### List for building
+
+- `ADAPTER__NAME`: The name of the adapter to use. The following values are possible:
+- `HOSTING__BASE_PATH`: Base path under which the application is hosted. Use an empty string for root hosting, or a value that starts with `/` such as `/app`;
+
 ### List for development
 
 - `SERVER__BIND__ADDRESS`: Address/interface the internal HTTP server should bind to;
@@ -78,6 +84,16 @@ The application is configured via [environment variables](https://en.wikipedia.o
 ### List for testing
 
 ## Developing
+
+### Building
+
+Run
+
+```
+npm run build
+```
+
+to build the application. The built application will be placed in the `./build` directory.
 
 ### commitlint
 
@@ -166,6 +182,24 @@ npm run release-it
 to make a release.
 
 ### Starting
+
+#### Build
+
+To start the built application without loading the environment variables from the [.env](https://nodejs.org/api/environment_variables.html#env-files) file, run:
+
+```
+npm run start:build
+```
+
+The built application must already be built as described in [the "Building" section](#building).
+
+##### .env
+
+To start the built application with loading the environment variables from the [.env](https://nodejs.org/api/environment_variables.html#env-files) file, run:
+
+```
+npm run start:build:.env
+```
 
 #### Development
 

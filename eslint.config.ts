@@ -796,6 +796,12 @@ export default [
 					zones: [
 						{
 							except: [],
+							from: `./!(node_modules|building)/**/*`,
+							message: `The building code should not import non-building code.`,
+							target: `./building/**/*`,
+						},
+						{
+							except: [],
 							from: `./!(node_modules|development)/**/*`,
 							message: `The development code should not import non-development code.`,
 							target: `./development/**/*`,
@@ -1395,5 +1401,5 @@ export default [
 		files: [`./stylelint.config.ts`],
 		rules: {"import-x/no-default-export": [`off`]},
 	},
-	{ignores: [`./.git`, `./.svelte-kit`, `./node_modules`]},
+	{ignores: [`./.git`, `./.svelte-kit`, `./build`, `./node_modules`]},
 ] as const satisfies readonly Linter.Config[];

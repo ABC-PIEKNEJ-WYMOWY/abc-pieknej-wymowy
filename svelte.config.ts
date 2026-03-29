@@ -1,8 +1,13 @@
 import type {Config} from "@sveltejs/kit";
+const {environmentOfBuilding: environment} = await import(
+	`./building/instances/environment/environmentOfBuilding.ts`
+);
 /* eslint-disable-next-line import-x/no-default-export */
 export default {
 	compilerOptions: {runes: true},
 	kit: {
+		/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
+		...(environment.adapter === null ? {} : {adapter: environment.adapter}),
 		csrf: {trustedOrigins: []},
 		env: {dir: `.`},
 		files: {
@@ -17,7 +22,11 @@ export default {
 			routes: `./source/routes`,
 			src: `./source`,
 		},
-		paths: {assets: ``, base: ``, relative: false},
+		paths: {
+			assets: ``,
+			base: environment.configuration.hosting.basePath ?? ``,
+			relative: false,
+		},
 	},
 	vitePlugin: {prebundleSvelteLibraries: false},
 } as const satisfies Config;
