@@ -353,15 +353,15 @@ function set(key, value, stringify = JSON.stringify) {
 }
 //#endregion
 //#region node_modules/@sveltejs/kit/src/runtime/app/paths/internal/client.js
-var base = globalThis.__sveltekit_d487dj?.base ?? "";
-var assets = globalThis.__sveltekit_d487dj?.assets ?? base ?? "";
+var base = globalThis.__sveltekit_4syqc6?.base ?? "/abc-pieknej-wymowy";
+var assets = globalThis.__sveltekit_4syqc6?.assets ?? base ?? "";
 //#endregion
 //#region node_modules/@sveltejs/kit/src/runtime/app/paths/client.js
 /** @import { Asset, RouteId, RouteIdWithSearchOrHash, Pathname, PathnameWithSearchOrHash, ResolvedPathname } from '$app/types' */
 /** @import { ResolveArgs } from './types.js' */
 //#endregion
 //#region \0virtual:__sveltekit/environment
-var version = "1774877782534";
+var version = "1774878235757";
 //#endregion
 //#region node_modules/@sveltejs/kit/src/runtime/client/constants.js
 var SNAPSHOT_KEY = "sveltekit:snapshot";
@@ -1161,7 +1161,7 @@ var query_map = /* @__PURE__ */ new Map();
 * @param {Parameters<typeof _hydrate>[1]} [hydrate]
 */
 async function start(_app, _target, hydrate) {
-	if (globalThis.__sveltekit_d487dj?.data) globalThis.__sveltekit_d487dj.data;
+	if (globalThis.__sveltekit_4syqc6?.data) globalThis.__sveltekit_4syqc6.data;
 	if (document.URL !== location.href) location.href = location.href;
 	app = _app;
 	await _app.hooks.init?.();
