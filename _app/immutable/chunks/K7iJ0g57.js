@@ -58,6 +58,7 @@ var DESTROYING = 1 << 25;
 * This is on a block effect 99% of the time but may also be on a branch effect if its parent block effect was pruned
 */
 var EFFECT_TRANSPARENT = 65536;
+var HEAD_EFFECT = 1 << 18;
 var EFFECT_PRESERVED = 1 << 19;
 var USER_EFFECT = 1 << 20;
 /**
@@ -786,6 +787,11 @@ var Batch = class Batch {
 	*/
 	#roots = [];
 	/**
+	* Effects created while this batch was active.
+	* @type {Effect[]}
+	*/
+	#new_effects = [];
+	/**
 	* Deferred effects (which run after async work has completed) that are DIRTY
 	* @type {Set<Effect>}
 	*/
@@ -1005,6 +1011,12 @@ var Batch = class Batch {
 		this.#discard_callbacks.clear();
 		batches.delete(this);
 	}
+	/**
+	* @param {Effect} effect
+	*/
+	register_created_effect(effect) {
+		this.#new_effects.push(effect);
+	}
 	#commit() {
 		for (const batch of batches) {
 			var is_earlier = batch.id < this.id;
@@ -1028,6 +1040,12 @@ var Batch = class Batch {
 				/** @type {Map<Reaction, boolean>} */
 				var checked = /* @__PURE__ */ new Map();
 				for (var source of sources) mark_effects(source, others, marked, checked);
+				checked = /* @__PURE__ */ new Map();
+				var current_unequal = [...batch.current.keys()].filter((c) => this.current.has(c) ? this.current.get(c)[0] !== c : true);
+				for (const effect of this.#new_effects) if ((effect.f & 155648) === 0 && depends_on(effect, current_unequal, checked)) if ((effect.f & 4194320) !== 0) {
+					set_signal_status(effect, DIRTY);
+					batch.schedule(effect);
+				} else batch.#dirty_effects.add(effect);
 				if (batch.#roots.length > 0) {
 					batch.apply();
 					for (var root of batch.#roots) batch.#traverse(root, [], []);
@@ -2383,6 +2401,8 @@ function proxy(value) {
 /** @import { Effect, TemplateNode } from '#client' */
 /** @type {Window} */
 var $window;
+/** @type {Document} */
+var $document;
 /** @type {boolean} */
 var is_firefox;
 /** @type {() => Node | null} */
@@ -2396,6 +2416,7 @@ var next_sibling_getter;
 function init_operations() {
 	if ($window !== void 0) return;
 	$window = window;
+	$document = document;
 	is_firefox = /Firefox/.test(navigator.userAgent);
 	var element_prototype = Element.prototype;
 	var node_prototype = Node.prototype;
@@ -2619,6 +2640,7 @@ function create_effect(type, fn) {
 		wv: 0,
 		ac: null
 	};
+	current_batch?.register_created_effect(effect);
 	/** @type {Effect | null} */
 	var e = effect;
 	if ((type & 4) !== 0) if (collected_effects !== null) collected_effects.push(effect);
@@ -3990,6 +4012,40 @@ function component(node, get_component, render_fn) {
 	}, EFFECT_TRANSPARENT);
 }
 //#endregion
+//#region node_modules/svelte/src/internal/client/dom/blocks/svelte-head.js
+/** @import { TemplateNode } from '#client' */
+/**
+* @param {string} hash
+* @param {(anchor: Node) => void} render_fn
+* @returns {void}
+*/
+function head(hash, render_fn) {
+	let previous_hydrate_node = null;
+	let was_hydrating = hydrating;
+	/** @type {Comment | Text} */
+	var anchor;
+	if (hydrating) {
+		previous_hydrate_node = hydrate_node;
+		var head_anchor = /* @__PURE__ */ get_first_child(document.head);
+		while (head_anchor !== null && (head_anchor.nodeType !== 8 || head_anchor.data !== hash)) head_anchor = /* @__PURE__ */ get_next_sibling(head_anchor);
+		if (head_anchor === null) set_hydrating(false);
+		else {
+			var start = /* @__PURE__ */ get_next_sibling(head_anchor);
+			head_anchor.remove();
+			set_hydrate_node(start);
+		}
+	}
+	if (!hydrating) anchor = document.head.appendChild(create_text());
+	try {
+		block(() => render_fn(anchor), HEAD_EFFECT | EFFECT_PRESERVED);
+	} finally {
+		if (was_hydrating) {
+			set_hydrating(true);
+			set_hydrate_node(previous_hydrate_node);
+		}
+	}
+}
+//#endregion
 //#region node_modules/svelte/src/internal/client/dom/elements/bindings/this.js
 /** @import { ComponentContext, Effect } from '#client' */
 /**
@@ -4500,4 +4556,4 @@ function init_update_callbacks(context) {
 	};
 }
 //#endregion
-export { pop as A, first_child as C, user_derived as D, state as E, setContext as M, reset as N, writable as O, child as S, set as T, tick as _, rest_props as a, user_effect as b, snippet as c, append as d, comment as f, settled as g, get as h, prop as i, push as j, getContext as k, if_block as l, text as m, onMount as n, bind_this as o, from_html as p, asClassComponent as r, component as s, index_client_exports as t, set_text as u, untrack as v, sibling as w, user_pre_effect as x, template_effect as y };
+export { user_derived as A, user_pre_effect as C, sibling as D, first_child as E, setContext as F, reset as I, getContext as M, pop as N, set as O, push as P, user_effect as S, child as T, settled as _, rest_props as a, effect as b, component as c, set_text as d, append as f, get as g, text as h, prop as i, writable as j, state as k, snippet as l, from_html as m, onMount as n, bind_this as o, comment as p, asClassComponent as r, head as s, index_client_exports as t, if_block as u, tick as v, $document as w, template_effect as x, untrack as y };

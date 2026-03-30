@@ -1,1 +1,1 @@
-{"type":"data","nodes":[{"type":"data","data":[null],"uses":{},"slash":"never"},{"type":"data","data":[null],"uses":{}}]}
+{"type":"data","nodes":[{"type":"data","data":[null],"uses":{},"slash":"never"},{"type":"data","data":[{"message":1},"Hello from the static adapter!"],"uses":{}}]}
