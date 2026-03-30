@@ -1382,6 +1382,10 @@ export default [
 		},
 	},
 	{
+		files: [`./**/*.stories.ts`],
+		rules: {"import-x/no-default-export": [`off`]},
+	},
+	{
 		files: [`./commitlint.config.ts`],
 		rules: {"import-x/no-default-export": [`off`]},
 	},
