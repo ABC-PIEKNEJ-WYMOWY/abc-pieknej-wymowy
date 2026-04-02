@@ -358,7 +358,7 @@ For production, you can use Docker to containerize and run the application.
     --build-arg HOSTING__BASE_PATH=${HOSTING__BASE_PATH} \
    	--build-arg DEBIAN__DOCKER_IMAGE__TAG__DATE=${DEBIAN__DOCKER_IMAGE__TAG__DATE} \
    	--build-arg NODE_JS__VERSION=${NODE_JS__VERSION} \
-   	--tag template-of-sveltekit-application:$(npm pkg get version | tr -d '"') \
+   	--tag abc-pieknej-wymowy:$(npm pkg get version | tr -d '"') \
    	.
    ```
 3. Run the built Docker image.

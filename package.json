@@ -42,10 +42,10 @@
 		"node": ">=24.14.0",
 		"npm": ">=11.9.0"
 	},
-	"name": "template-of-sveltekit-application",
+	"name": "abc-pieknej-wymowy",
 	"repository": {
 		"type": "git",
-		"url": "http://git.ztrans.pl:3000/it/template-of-sveltekit-application.git"
+		"url": "http://git.ztrans.pl:3000/it/abc-pieknej-wymowy.git"
 	},
 	"scripts": {
 		"build": "node --env-file-if-exists='./.env' ./node_modules/.bin/svelte-kit sync && node --env-file-if-exists='./.env' ./node_modules/.bin/vite build --configLoader=native",
