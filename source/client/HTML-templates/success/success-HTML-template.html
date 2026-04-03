@@ -1,11 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
 	<head>
 		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
+		<style>
+			html {
+				min-height: 100%;
+			}
+			.sveltekit-body,
+			body,
+			html {
+				display: grid;
+				grid-template-columns: 1fr;
+				grid-template-rows: 1fr;
+			}
+			body {
+				margin: 0;
+			}
+			*,
+			*::after,
+			*::before {
+				box-sizing: border-box;
+				word-break: break-word;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="sveltekit-body">%sveltekit.body%</div>
