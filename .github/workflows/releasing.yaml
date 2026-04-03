@@ -74,6 +74,60 @@ jobs:
       - name: "Publish to the npm registry"
         run: |
           npm publish --registry=${{vars.NPM_REGISTRY_URL}} --//$(echo -n ${{vars.NPM_REGISTRY_URL}} | sed 's/^[^\/]*\/\///'):_authToken=${{secrets.NPM_REGISTRY_ACCESS_TOKEN}}
+  build_static_application:
+    name: "Build static application for GitHub Pages"
+    needs: ["release"]
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: "read"
+      pages: "write"
+      id-token: "write"
+    steps:
+      - name: "Checkout the repository"
+        uses: "actions/checkout@v6.0.2"
+      - name: "Setup Node.js"
+        uses: "actions/setup-node@v6.3.0"
+        with:
+          cache: "npm"
+          node-version: "${{env.NODEJS_VERSION}}"
+      - id: "determine_hosting_base_path"
+        name: "Determine hosting base path"
+        run: |
+          if [[ "${GITHUB_REPOSITORY#*/}" == *.github.io ]]; then
+            echo "value=" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=/${GITHUB_REPOSITORY#*/}" >> "$GITHUB_OUTPUT"
+          fi
+      - name: "Install the dependencies"
+        run: |
+          npm ci
+      - name: "Build the static application"
+        env:
+          ADAPTER__NAME: "static"
+          HOSTING__BASE_PATH: "${{steps.determine_hosting_base_path.outputs.value}}"
+        run: |
+          npm run build
+      - name: "Disable Jekyll processing"
+        run: |
+          touch ./build/.nojekyll
+      - name: "Upload static application as GitHub Pages artifact"
+        uses: "actions/upload-pages-artifact@v4"
+        with:
+          path: "./build"
+  publish_to_github_pages:
+    name: "Publish to GitHub Pages"
+    needs: ["build_static_application"]
+    runs-on: "ubuntu-latest"
+    permissions:
+      pages: "write"
+      id-token: "write"
+    environment:
+      name: "github-pages"
+      url: "${{steps.publish.outputs.page_url}}"
+    steps:
+      - id: "publish"
+        name: "Deploy to GitHub Pages"
+        uses: "actions/deploy-pages@v4"
   release:
     name: "Release"
     outputs:
