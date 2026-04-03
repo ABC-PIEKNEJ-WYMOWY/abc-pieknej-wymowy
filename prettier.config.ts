@@ -1,7 +1,7 @@
 import type {Config} from "prettier";
 export default {
 	arrowParens: `always`,
-	bracketSameLine: true,
+	bracketSameLine: false,
 	bracketSpacing: false,
 	endOfLine: `lf`,
 	experimentalOperatorPosition: `start`,
