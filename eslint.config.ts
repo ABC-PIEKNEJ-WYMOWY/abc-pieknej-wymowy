@@ -67,24 +67,7 @@ export default [
 			],
 			"svelte/derived-has-same-inputs-outputs": [`warn`],
 			"svelte/experimental-require-slot-types": [`warn`],
-			"svelte/html-closing-bracket-new-line": [
-				`warn`,
-				{
-					multiline: `never`,
-					selfClosingTag: {multiline: `never`, singleline: `never`},
-					singleline: `never`,
-				},
-			],
 			"svelte/html-self-closing": [`warn`, `html`],
-			"svelte/indent": [
-				`warn`,
-				{
-					alignAttributesVertically: false,
-					ignoredNodes: [],
-					indent: `tab`,
-					switchCase: 1,
-				},
-			],
 			"svelte/infinite-reactive-loop": [`warn`],
 			"svelte/mustache-spacing": [
 				`warn`,
