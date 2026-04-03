@@ -5,7 +5,7 @@
 
 <svelte:head
 	><meta
-		content="ABC pięknej wymowy — logopeda i nauczycielka Aleksandra Danylec."
+		content="ABC pięknej wymowy – logopeda i nauczycielka Aleksandra Danylec."
 		name="description"
 	/><title>ABC pięknej wymowy | Aleksandra Danylec</title></svelte:head
 ><div

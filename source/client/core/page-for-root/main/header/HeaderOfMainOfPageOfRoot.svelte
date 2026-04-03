@@ -1,6 +1,6 @@
 <script lang="ts"></script>
 
-<header id="#abc-pieknej-wymowy"
+<header id="abc-pieknej-wymowy"
 	><h1>ABC pięknej wymowy – zajęcia ogólnorozwojowe dla dzieci</h1><p
 		>Indywidualne podejście, profesjonalna diagnoza i zajęcia dopasowane do
 		wieku oraz potrzeb dziecka.</p
