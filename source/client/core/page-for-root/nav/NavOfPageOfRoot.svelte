@@ -27,6 +27,7 @@
 		flex-flow: row wrap;
 		flex-direction: row;
 		gap: 0 1rem;
+		justify-content: space-between;
 		border: 2px solid oklch(90% 0 0deg);
 	}
 	a {
