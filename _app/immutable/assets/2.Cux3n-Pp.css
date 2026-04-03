@@ -1,0 +1,106 @@
+
+	section.svelte-1hisrib {
+		background-color: oklch(97% 0 0deg);
+		padding: 0 calc(1.5 * 0.83em);
+		display: block grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		margin-block: clamp(1em, 4vw, 2em);
+	}
+
+	a.svelte-1ei7iww {
+		display: inline flow-root;
+		padding: 0.5rem;
+		color: inherit;
+		text-decoration: none;
+		border-radius: 0.5rem;
+		background-color: oklch(90% 0 0deg);
+		border: 2px solid;
+		border-color: oklch(80% 0 0deg);
+		&:hover {
+			background-color: oklch(85% 0 0deg);
+			border-color: oklch(75% 0 0deg);
+		}
+		&:active {
+			background-color: oklch(80% 0 0deg);
+			border-color: oklch(70% 0 0deg);
+		}
+	}
+
+	header.svelte-wgnsv7 {
+		margin-block: 2em;
+	}
+	a.svelte-wgnsv7 {
+		display: inline flow-root;
+		padding: 0.5rem;
+		color: inherit;
+		text-decoration: none;
+		border-radius: 0.5rem;
+		background-color: oklch(90% 0 0deg);
+		border: 2px solid;
+		border-color: oklch(80% 0 0deg);
+		&:hover {
+			background-color: oklch(85% 0 0deg);
+			border-color: oklch(75% 0 0deg);
+		}
+		&:active {
+			background-color: oklch(80% 0 0deg);
+			border-color: oklch(70% 0 0deg);
+		}
+	}
+
+	div.svelte-pmahsl {
+		background-color: oklch(100% 0 0deg);
+		display: block grid;
+		grid-template-columns: min(100%, 40rem);
+		margin: 0 clamp(1em, 4vw, 2em);
+		grid-template-rows: 1fr;
+		justify-content: center;
+	}
+
+	div.svelte-121d5ud {
+		display: block grid;
+		grid-template-columns: min(100%, 50rem);
+		grid-template-rows: 1fr;
+		justify-content: center;
+		position: sticky;
+		top: 0;
+	}
+	nav.svelte-121d5ud {
+		background-color: oklch(95% 0 0deg);
+		display: block flex;
+		flex-flow: row wrap;
+		flex-direction: row;
+		gap: 0 1rem;
+		border: 2px solid oklch(90% 0 0deg);
+	}
+	a.svelte-121d5ud {
+		padding: 1rem;
+		color: inherit;
+		text-decoration: none;
+		&:hover {
+			background-color: oklch(90% 0 0deg);
+		}
+		&:active {
+			background-color: oklch(85% 0 0deg);
+		}
+	}
+	ul.svelte-121d5ud {
+		display: block flex;
+		flex-flow: row wrap;
+		list-style-type: none;
+		margin-block: 0;
+		padding-inline-start: 0;
+		justify-content: space-between;
+		> li:where(.svelte-121d5ud) {
+			display: block flex;
+		}
+	}
+
+	div.svelte-ievkcv {
+		display: block grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: min-content 1fr;
+		color: oklch(0% 0 0deg);
+		font-family: system-ui;
+	}

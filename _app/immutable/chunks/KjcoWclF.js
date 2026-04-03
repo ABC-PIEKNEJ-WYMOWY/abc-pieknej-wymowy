@@ -1,4 +1,4 @@
-import { O as set$1, _ as settled, g as get$1, j as writable, k as state, n as onMount$1, t as index_client_exports, v as tick$1 } from "./K7iJ0g57.js";
+import { A as state, M as writable, _ as get$1, k as set$1, n as onMount$1, t as index_client_exports, v as settled, y as tick$1 } from "./Om5-tcGe.js";
 //#region node_modules/@sveltejs/kit/src/exports/internal/index.js
 /** @import { StandardSchemaV1 } from '@standard-schema/spec' */
 var HttpError = class {
@@ -353,15 +353,15 @@ function set(key, value, stringify = JSON.stringify) {
 }
 //#endregion
 //#region node_modules/@sveltejs/kit/src/runtime/app/paths/internal/client.js
-var base = globalThis.__sveltekit_4syqc6?.base ?? "/abc-pieknej-wymowy";
-var assets = globalThis.__sveltekit_4syqc6?.assets ?? base ?? "";
+var base = globalThis.__sveltekit_1o5gynn?.base ?? "";
+var assets = globalThis.__sveltekit_1o5gynn?.assets ?? base ?? "";
 //#endregion
 //#region node_modules/@sveltejs/kit/src/runtime/app/paths/client.js
 /** @import { Asset, RouteId, RouteIdWithSearchOrHash, Pathname, PathnameWithSearchOrHash, ResolvedPathname } from '$app/types' */
 /** @import { ResolveArgs } from './types.js' */
 //#endregion
 //#region \0virtual:__sveltekit/environment
-var version = "1774878235757";
+var version = "1775259661519";
 //#endregion
 //#region node_modules/@sveltejs/kit/src/runtime/client/constants.js
 var SNAPSHOT_KEY = "sveltekit:snapshot";
@@ -1161,7 +1161,7 @@ var query_map = /* @__PURE__ */ new Map();
 * @param {Parameters<typeof _hydrate>[1]} [hydrate]
 */
 async function start(_app, _target, hydrate) {
-	if (globalThis.__sveltekit_4syqc6?.data) globalThis.__sveltekit_4syqc6.data;
+	if (globalThis.__sveltekit_1o5gynn?.data) globalThis.__sveltekit_1o5gynn.data;
 	if (document.URL !== location.href) location.href = location.href;
 	app = _app;
 	await _app.hooks.init?.();

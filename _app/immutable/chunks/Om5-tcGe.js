@@ -17,6 +17,7 @@ var includes = Array.prototype.includes;
 var array_from = Array.from;
 var define_property = Object.defineProperty;
 var get_descriptor = Object.getOwnPropertyDescriptor;
+var get_descriptors = Object.getOwnPropertyDescriptors;
 var object_prototype = Object.prototype;
 var array_prototype = Array.prototype;
 var get_prototype_of = Object.getPrototypeOf;
@@ -72,12 +73,13 @@ var ASYNC = 1 << 22;
 var ERROR_VALUE = 1 << 23;
 var STATE_SYMBOL = Symbol("$state");
 var LEGACY_PROPS = Symbol("legacy props");
+var LOADING_ATTR_SYMBOL = Symbol("");
 /** allow users to ignore aborted signal errors if `reason.name === 'StaleReactionError` */
 var STALE_REACTION = new class StaleReactionError extends Error {
 	name = "StaleReactionError";
 	message = "The reaction that called `getAbortSignal()` was re-run or destroyed";
 }();
-globalThis.document?.contentType;
+var IS_XHTML = !!globalThis.document?.contentType && /* @__PURE__ */ globalThis.document.contentType.includes("xml");
 //#endregion
 //#region node_modules/svelte/src/internal/shared/errors.js
 /**
@@ -225,6 +227,7 @@ function svelte_boundary_reset_onerror() {
 //#region node_modules/svelte/src/constants.js
 var HYDRATION_ERROR = {};
 var UNINITIALIZED = Symbol();
+var NAMESPACE_HTML = "http://www.w3.org/1999/xhtml";
 /**
 * Expected to find a hydratable with key `%key%` during hydration, but did not.
 * @param {string} key
@@ -4046,6 +4049,67 @@ function head(hash, render_fn) {
 	}
 }
 //#endregion
+//#region node_modules/svelte/src/internal/client/dom/elements/attributes.js
+/** @import { Blocker, Effect } from '#client' */
+var IS_CUSTOM_ELEMENT = Symbol("is custom element");
+var IS_HTML = Symbol("is html");
+var LINK_TAG = IS_XHTML ? "link" : "LINK";
+/**
+* @param {Element} element
+* @param {string} attribute
+* @param {string | null} value
+* @param {boolean} [skip_warning]
+*/
+function set_attribute(element, attribute, value, skip_warning) {
+	var attributes = get_attributes(element);
+	if (hydrating) {
+		attributes[attribute] = element.getAttribute(attribute);
+		if (attribute === "src" || attribute === "srcset" || attribute === "href" && element.nodeName === LINK_TAG) {
+			if (!skip_warning) check_src_in_dev_hydration(element, attribute, value ?? "");
+			return;
+		}
+	}
+	if (attributes[attribute] === (attributes[attribute] = value)) return;
+	if (attribute === "loading") element[LOADING_ATTR_SYMBOL] = value;
+	if (value == null) element.removeAttribute(attribute);
+	else if (typeof value !== "string" && get_setters(element).includes(attribute)) element[attribute] = value;
+	else element.setAttribute(attribute, value);
+}
+/**
+*
+* @param {Element} element
+*/
+function get_attributes(element) {
+	return element.__attributes ??= {
+		[IS_CUSTOM_ELEMENT]: element.nodeName.includes("-"),
+		[IS_HTML]: element.namespaceURI === NAMESPACE_HTML
+	};
+}
+/** @type {Map<string, string[]>} */
+var setters_cache = /* @__PURE__ */ new Map();
+/** @param {Element} element */
+function get_setters(element) {
+	var cache_key = element.getAttribute("is") || element.nodeName;
+	var setters = setters_cache.get(cache_key);
+	if (setters) return setters;
+	setters_cache.set(cache_key, setters = []);
+	var descriptors;
+	var proto = element;
+	var element_proto = Element.prototype;
+	while (element_proto !== proto) {
+		descriptors = get_descriptors(proto);
+		for (var key in descriptors) if (descriptors[key].set) setters.push(key);
+		proto = get_prototype_of(proto);
+	}
+	return setters;
+}
+/**
+* @param {any} element
+* @param {string} attribute
+* @param {string} value
+*/
+function check_src_in_dev_hydration(element, attribute, value) {}
+//#endregion
 //#region node_modules/svelte/src/internal/client/dom/elements/bindings/this.js
 /** @import { ComponentContext, Effect } from '#client' */
 /**
@@ -4556,4 +4620,4 @@ function init_update_callbacks(context) {
 	};
 }
 //#endregion
-export { user_derived as A, user_pre_effect as C, sibling as D, first_child as E, setContext as F, reset as I, getContext as M, pop as N, set as O, push as P, user_effect as S, child as T, settled as _, rest_props as a, effect as b, component as c, set_text as d, append as f, get as g, text as h, prop as i, writable as j, state as k, snippet as l, from_html as m, onMount as n, bind_this as o, comment as p, asClassComponent as r, head as s, index_client_exports as t, if_block as u, tick as v, $document as w, template_effect as x, untrack as y };
+export { state as A, user_effect as C, first_child as D, child as E, push as F, setContext as I, next as L, writable as M, getContext as N, sibling as O, pop as P, reset as R, template_effect as S, $document as T, get as _, rest_props as a, untrack as b, head as c, if_block as d, set_text as f, text as g, from_html as h, prop as i, user_derived as j, set as k, component as l, comment as m, onMount as n, bind_this as o, append as p, asClassComponent as r, set_attribute as s, index_client_exports as t, snippet as u, settled as v, user_pre_effect as w, effect as x, tick as y };
