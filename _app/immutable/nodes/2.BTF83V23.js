@@ -1,7 +1,7 @@
-import { E as child, F as push, L as next, O as sibling, P as pop, R as reset, S as template_effect, T as $document, a as rest_props, c as head, f as set_text, h as from_html, p as append, s as set_attribute, u as snippet, x as effect } from "../chunks/Om5-tcGe.js";
-import "../chunks/N1gyZNZa.js";
+import { A as child, E as template_effect, H as reset, M as sibling, R as pop, T as effect, V as next, _ as append, a as rest_props, f as snippet, g as set_text, k as $document, l as set_attribute, u as head, y as from_html, z as push } from "../chunks/DWMM-_IK.js";
+import "../chunks/3hvZFEVc.js";
 //#region source/client/core/card/Card.svelte
-var root$4 = from_html(`<section class="svelte-1hisrib"><div><h2> </h2><!></div></section>`);
+var root$4 = from_html(`<section class="svelte-1hisrib"><div><h2 class="svelte-1hisrib"> </h2><!></div></section>`);
 function Card($$anchor, $$props) {
 	push($$props, true);
 	rest_props($$props, [
@@ -88,7 +88,7 @@ function ServicesCard($$anchor) {
 }
 //#endregion
 //#region source/client/core/page-for-root/main/header/HeaderOfMainOfPageOfRoot.svelte
-var root$3 = from_html(`<header id="abc-pieknej-wymowy" class="svelte-wgnsv7"><h1>ABC pięknej wymowy – zajęcia ogólnorozwojowe dla dzieci</h1><p>Indywidualne podejście, profesjonalna diagnoza i zajęcia dopasowane do
+var root$3 = from_html(`<header id="abc-pieknej-wymowy" class="svelte-wgnsv7"><h1 class="svelte-wgnsv7">ABC pięknej wymowy – zajęcia ogólnorozwojowe dla dzieci</h1><p>Indywidualne podejście, profesjonalna diagnoza i zajęcia dopasowane do
 		wieku oraz potrzeb dziecka.</p><p>Znajdziesz tutaj najważniejsze informacje o ofercie, zapisach i formie
 		współpracy.</p><p><a href="#kontakt" class="svelte-wgnsv7">Umów się</a></p></header>`);
 function HeaderOfMainOfPageOfRoot($$anchor) {

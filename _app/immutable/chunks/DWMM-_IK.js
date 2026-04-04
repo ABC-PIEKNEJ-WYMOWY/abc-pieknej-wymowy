@@ -62,6 +62,7 @@ var EFFECT_TRANSPARENT = 65536;
 var HEAD_EFFECT = 1 << 18;
 var EFFECT_PRESERVED = 1 << 19;
 var USER_EFFECT = 1 << 20;
+var EFFECT_OFFSCREEN = 1 << 25;
 /**
 * Tells that we marked this derived and its reactions as visited during the "mark as (maybe) dirty"-phase.
 * Will be lifted during execution of the derived and during checking its dirty state (both are necessary
@@ -113,6 +114,16 @@ function missing_context() {
 */
 function async_derived_orphan() {
 	throw new Error(`https://svelte.dev/e/async_derived_orphan`);
+}
+/**
+* Keyed each block has duplicate key `%value%` at indexes %a% and %b%
+* @param {string} a
+* @param {string} b
+* @param {string | undefined | null} [value]
+* @returns {never}
+*/
+function each_key_duplicate(a, b, value) {
+	throw new Error(`https://svelte.dev/e/each_key_duplicate`);
 }
 /**
 * `%rune%` cannot be used inside an effect cleanup function
@@ -715,6 +726,11 @@ var batches = /* @__PURE__ */ new Set();
 /** @type {Batch | null} */
 var current_batch = null;
 /**
+* This is needed to avoid overwriting inputs
+* @type {Batch | null}
+*/
+var previous_batch = null;
+/**
 * When time travelling (i.e. working in one batch, while other batches
 * still have ongoing work), we ignore the real values of affected
 * signals in favour of their values within the batch
@@ -914,8 +930,10 @@ var Batch = class Batch {
 			this.#maybe_dirty_effects.clear();
 			for (const fn of this.#commit_callbacks) fn(this);
 			this.#commit_callbacks.clear();
+			previous_batch = this;
 			flush_queued_effects(render_effects);
 			flush_queued_effects(effects);
+			previous_batch = null;
 			this.#deferred?.resolve();
 		}
 		var next_batch = current_batch;
@@ -2575,6 +2593,19 @@ function merge_text_nodes(text) {
 	}
 }
 //#endregion
+//#region node_modules/svelte/src/internal/client/dom/elements/misc.js
+var listening_to_form_reset = false;
+function add_form_reset_listener() {
+	if (!listening_to_form_reset) {
+		listening_to_form_reset = true;
+		document.addEventListener("reset", (evt) => {
+			Promise.resolve().then(() => {
+				if (!evt.defaultPrevented) for (const e of evt.target.elements) e.__on_r?.();
+			});
+		}, { capture: true });
+	}
+}
+//#endregion
 //#region node_modules/svelte/src/internal/client/dom/elements/bindings/shared.js
 /**
 * @template T
@@ -2591,6 +2622,24 @@ function without_reactive_context(fn) {
 		set_active_reaction(previous_reaction);
 		set_active_effect(previous_effect);
 	}
+}
+/**
+* Listen to the given event, and then instantiate a global form reset listener if not already done,
+* to notify all bindings when the form is reset
+* @param {HTMLElement} element
+* @param {string} event
+* @param {(is_reset?: true) => void} handler
+* @param {(is_reset?: true) => void} [on_reset]
+*/
+function listen_to_event_and_reset_event(element, event, handler, on_reset = handler) {
+	element.addEventListener(event, () => without_reactive_context(handler));
+	const prev = element.__on_r;
+	if (prev) element.__on_r = () => {
+		prev();
+		on_reset(true);
+	};
+	else element.__on_r = () => on_reset(true);
+	add_form_reset_listener();
 }
 //#endregion
 //#region node_modules/svelte/src/internal/client/reactivity/effects.js
@@ -3935,6 +3984,418 @@ function if_block(node, fn, elseif = false) {
 	}, flags);
 }
 //#endregion
+//#region node_modules/svelte/src/internal/client/dom/blocks/each.js
+/** @import { EachItem, EachOutroGroup, EachState, Effect, EffectNodes, MaybeSource, Source, TemplateNode, TransitionManager, Value } from '#client' */
+/** @import { Batch } from '../../reactivity/batch.js'; */
+/**
+* @param {any} _
+* @param {number} i
+*/
+function index(_, i) {
+	return i;
+}
+/**
+* Pause multiple effects simultaneously, and coordinate their
+* subsequent destruction. Used in each blocks
+* @param {EachState} state
+* @param {Effect[]} to_destroy
+* @param {null | Node} controlled_anchor
+*/
+function pause_effects(state, to_destroy, controlled_anchor) {
+	/** @type {TransitionManager[]} */
+	var transitions = [];
+	var length = to_destroy.length;
+	/** @type {EachOutroGroup} */
+	var group;
+	var remaining = to_destroy.length;
+	for (var i = 0; i < length; i++) {
+		let effect = to_destroy[i];
+		pause_effect(effect, () => {
+			if (group) {
+				group.pending.delete(effect);
+				group.done.add(effect);
+				if (group.pending.size === 0) {
+					var groups = state.outrogroups;
+					destroy_effects(state, array_from(group.done));
+					groups.delete(group);
+					if (groups.size === 0) state.outrogroups = null;
+				}
+			} else remaining -= 1;
+		}, false);
+	}
+	if (remaining === 0) {
+		var fast_path = transitions.length === 0 && controlled_anchor !== null;
+		if (fast_path) {
+			var anchor = controlled_anchor;
+			var parent_node = anchor.parentNode;
+			clear_text_content(parent_node);
+			parent_node.append(anchor);
+			state.items.clear();
+		}
+		destroy_effects(state, to_destroy, !fast_path);
+	} else {
+		group = {
+			pending: new Set(to_destroy),
+			done: /* @__PURE__ */ new Set()
+		};
+		(state.outrogroups ??= /* @__PURE__ */ new Set()).add(group);
+	}
+}
+/**
+* @param {EachState} state
+* @param {Effect[]} to_destroy
+* @param {boolean} remove_dom
+*/
+function destroy_effects(state, to_destroy, remove_dom = true) {
+	/** @type {Set<Effect> | undefined} */
+	var preserved_effects;
+	if (state.pending.size > 0) {
+		preserved_effects = /* @__PURE__ */ new Set();
+		for (const keys of state.pending.values()) for (const key of keys) preserved_effects.add(
+			/** @type {EachItem} */
+			state.items.get(key).e
+		);
+	}
+	for (var i = 0; i < to_destroy.length; i++) {
+		var e = to_destroy[i];
+		if (preserved_effects?.has(e)) {
+			e.f |= EFFECT_OFFSCREEN;
+			move_effect(e, document.createDocumentFragment());
+		} else destroy_effect(to_destroy[i], remove_dom);
+	}
+}
+/** @type {TemplateNode} */
+var offscreen_anchor;
+/**
+* @template V
+* @param {Element | Comment} node The next sibling node, or the parent node if this is a 'controlled' block
+* @param {number} flags
+* @param {() => V[]} get_collection
+* @param {(value: V, index: number) => any} get_key
+* @param {(anchor: Node, item: MaybeSource<V>, index: MaybeSource<number>) => void} render_fn
+* @param {null | ((anchor: Node) => void)} fallback_fn
+* @returns {void}
+*/
+function each(node, flags, get_collection, get_key, render_fn, fallback_fn = null) {
+	var anchor = node;
+	/** @type {Map<any, EachItem>} */
+	var items = /* @__PURE__ */ new Map();
+	if ((flags & 4) !== 0) {
+		var parent_node = node;
+		anchor = hydrating ? set_hydrate_node(/* @__PURE__ */ get_first_child(parent_node)) : parent_node.appendChild(create_text());
+	}
+	if (hydrating) hydrate_next();
+	/** @type {Effect | null} */
+	var fallback = null;
+	var each_array = /* @__PURE__ */ derived_safe_equal(() => {
+		var collection = get_collection();
+		return is_array(collection) ? collection : collection == null ? [] : array_from(collection);
+	});
+	/** @type {V[]} */
+	var array;
+	/** @type {Map<Batch, Set<any>>} */
+	var pending = /* @__PURE__ */ new Map();
+	var first_run = true;
+	/**
+	* @param {Batch} batch
+	*/
+	function commit(batch) {
+		if ((state.effect.f & 16384) !== 0) return;
+		state.pending.delete(batch);
+		state.fallback = fallback;
+		reconcile(state, array, anchor, flags, get_key);
+		if (fallback !== null) if (array.length === 0) if ((fallback.f & 33554432) === 0) resume_effect(fallback);
+		else {
+			fallback.f ^= EFFECT_OFFSCREEN;
+			move(fallback, null, anchor);
+		}
+		else pause_effect(fallback, () => {
+			fallback = null;
+		});
+	}
+	/**
+	* @param {Batch} batch
+	*/
+	function discard(batch) {
+		state.pending.delete(batch);
+	}
+	/** @type {EachState} */
+	var state = {
+		effect: block(() => {
+			array = get(each_array);
+			var length = array.length;
+			/** `true` if there was a hydration mismatch. Needs to be a `let` or else it isn't treeshaken out */
+			let mismatch = false;
+			if (hydrating) {
+				if (read_hydration_instruction(anchor) === "[!" !== (length === 0)) {
+					anchor = skip_nodes();
+					set_hydrate_node(anchor);
+					set_hydrating(false);
+					mismatch = true;
+				}
+			}
+			var keys = /* @__PURE__ */ new Set();
+			var batch = current_batch;
+			var defer = should_defer_append();
+			for (var index = 0; index < length; index += 1) {
+				if (hydrating && hydrate_node.nodeType === 8 && hydrate_node.data === "]") {
+					anchor = hydrate_node;
+					mismatch = true;
+					set_hydrating(false);
+				}
+				var value = array[index];
+				var key = get_key(value, index);
+				var item = first_run ? null : items.get(key);
+				if (item) {
+					if (item.v) internal_set(item.v, value);
+					if (item.i) internal_set(item.i, index);
+					if (defer) batch.unskip_effect(item.e);
+				} else {
+					item = create_item(items, first_run ? anchor : offscreen_anchor ??= create_text(), value, key, index, render_fn, flags, get_collection);
+					if (!first_run) item.e.f |= EFFECT_OFFSCREEN;
+					items.set(key, item);
+				}
+				keys.add(key);
+			}
+			if (length === 0 && fallback_fn && !fallback) if (first_run) fallback = branch(() => fallback_fn(anchor));
+			else {
+				fallback = branch(() => fallback_fn(offscreen_anchor ??= create_text()));
+				fallback.f |= EFFECT_OFFSCREEN;
+			}
+			if (length > keys.size) each_key_duplicate("", "", "");
+			if (hydrating && length > 0) set_hydrate_node(skip_nodes());
+			if (!first_run) {
+				pending.set(batch, keys);
+				if (defer) {
+					for (const [key, item] of items) if (!keys.has(key)) batch.skip_effect(item.e);
+					batch.oncommit(commit);
+					batch.ondiscard(discard);
+				} else commit(batch);
+			}
+			if (mismatch) set_hydrating(true);
+			get(each_array);
+		}),
+		flags,
+		items,
+		pending,
+		outrogroups: null,
+		fallback
+	};
+	first_run = false;
+	if (hydrating) anchor = hydrate_node;
+}
+/**
+* Skip past any non-branch effects (which could be created with `createSubscriber`, for example) to find the next branch effect
+* @param {Effect | null} effect
+* @returns {Effect | null}
+*/
+function skip_to_branch(effect) {
+	while (effect !== null && (effect.f & 32) === 0) effect = effect.next;
+	return effect;
+}
+/**
+* Add, remove, or reorder items output by an each block as its input changes
+* @template V
+* @param {EachState} state
+* @param {Array<V>} array
+* @param {Element | Comment | Text} anchor
+* @param {number} flags
+* @param {(value: V, index: number) => any} get_key
+* @returns {void}
+*/
+function reconcile(state, array, anchor, flags, get_key) {
+	var is_animated = (flags & 8) !== 0;
+	var length = array.length;
+	var items = state.items;
+	var current = skip_to_branch(state.effect.first);
+	/** @type {undefined | Set<Effect>} */
+	var seen;
+	/** @type {Effect | null} */
+	var prev = null;
+	/** @type {undefined | Set<Effect>} */
+	var to_animate;
+	/** @type {Effect[]} */
+	var matched = [];
+	/** @type {Effect[]} */
+	var stashed = [];
+	/** @type {V} */
+	var value;
+	/** @type {any} */
+	var key;
+	/** @type {Effect | undefined} */
+	var effect;
+	/** @type {number} */
+	var i;
+	if (is_animated) for (i = 0; i < length; i += 1) {
+		value = array[i];
+		key = get_key(value, i);
+		effect = items.get(key).e;
+		if ((effect.f & 33554432) === 0) {
+			effect.nodes?.a?.measure();
+			(to_animate ??= /* @__PURE__ */ new Set()).add(effect);
+		}
+	}
+	for (i = 0; i < length; i += 1) {
+		value = array[i];
+		key = get_key(value, i);
+		effect = items.get(key).e;
+		if (state.outrogroups !== null) for (const group of state.outrogroups) {
+			group.pending.delete(effect);
+			group.done.delete(effect);
+		}
+		if ((effect.f & 8192) !== 0) {
+			resume_effect(effect);
+			if (is_animated) {
+				effect.nodes?.a?.unfix();
+				(to_animate ??= /* @__PURE__ */ new Set()).delete(effect);
+			}
+		}
+		if ((effect.f & 33554432) !== 0) {
+			effect.f ^= EFFECT_OFFSCREEN;
+			if (effect === current) move(effect, null, anchor);
+			else {
+				var next = prev ? prev.next : current;
+				if (effect === state.effect.last) state.effect.last = effect.prev;
+				if (effect.prev) effect.prev.next = effect.next;
+				if (effect.next) effect.next.prev = effect.prev;
+				link(state, prev, effect);
+				link(state, effect, next);
+				move(effect, next, anchor);
+				prev = effect;
+				matched = [];
+				stashed = [];
+				current = skip_to_branch(prev.next);
+				continue;
+			}
+		}
+		if (effect !== current) {
+			if (seen !== void 0 && seen.has(effect)) {
+				if (matched.length < stashed.length) {
+					var start = stashed[0];
+					var j;
+					prev = start.prev;
+					var a = matched[0];
+					var b = matched[matched.length - 1];
+					for (j = 0; j < matched.length; j += 1) move(matched[j], start, anchor);
+					for (j = 0; j < stashed.length; j += 1) seen.delete(stashed[j]);
+					link(state, a.prev, b.next);
+					link(state, prev, a);
+					link(state, b, start);
+					current = start;
+					prev = b;
+					i -= 1;
+					matched = [];
+					stashed = [];
+				} else {
+					seen.delete(effect);
+					move(effect, current, anchor);
+					link(state, effect.prev, effect.next);
+					link(state, effect, prev === null ? state.effect.first : prev.next);
+					link(state, prev, effect);
+					prev = effect;
+				}
+				continue;
+			}
+			matched = [];
+			stashed = [];
+			while (current !== null && current !== effect) {
+				(seen ??= /* @__PURE__ */ new Set()).add(current);
+				stashed.push(current);
+				current = skip_to_branch(current.next);
+			}
+			if (current === null) continue;
+		}
+		if ((effect.f & 33554432) === 0) matched.push(effect);
+		prev = effect;
+		current = skip_to_branch(effect.next);
+	}
+	if (state.outrogroups !== null) {
+		for (const group of state.outrogroups) if (group.pending.size === 0) {
+			destroy_effects(state, array_from(group.done));
+			state.outrogroups?.delete(group);
+		}
+		if (state.outrogroups.size === 0) state.outrogroups = null;
+	}
+	if (current !== null || seen !== void 0) {
+		/** @type {Effect[]} */
+		var to_destroy = [];
+		if (seen !== void 0) {
+			for (effect of seen) if ((effect.f & 8192) === 0) to_destroy.push(effect);
+		}
+		while (current !== null) {
+			if ((current.f & 8192) === 0 && current !== state.fallback) to_destroy.push(current);
+			current = skip_to_branch(current.next);
+		}
+		var destroy_length = to_destroy.length;
+		if (destroy_length > 0) {
+			var controlled_anchor = (flags & 4) !== 0 && length === 0 ? anchor : null;
+			if (is_animated) {
+				for (i = 0; i < destroy_length; i += 1) to_destroy[i].nodes?.a?.measure();
+				for (i = 0; i < destroy_length; i += 1) to_destroy[i].nodes?.a?.fix();
+			}
+			pause_effects(state, to_destroy, controlled_anchor);
+		}
+	}
+	if (is_animated) queue_micro_task(() => {
+		if (to_animate === void 0) return;
+		for (effect of to_animate) effect.nodes?.a?.apply();
+	});
+}
+/**
+* @template V
+* @param {Map<any, EachItem>} items
+* @param {Node} anchor
+* @param {V} value
+* @param {unknown} key
+* @param {number} index
+* @param {(anchor: Node, item: V | Source<V>, index: number | Value<number>, collection: () => V[]) => void} render_fn
+* @param {number} flags
+* @param {() => V[]} get_collection
+* @returns {EachItem}
+*/
+function create_item(items, anchor, value, key, index, render_fn, flags, get_collection) {
+	var v = (flags & 1) !== 0 ? (flags & 16) === 0 ? /* @__PURE__ */ mutable_source(value, false, false) : source(value) : null;
+	var i = (flags & 2) !== 0 ? source(index) : null;
+	return {
+		v,
+		i,
+		e: branch(() => {
+			render_fn(anchor, v ?? value, i ?? index, get_collection);
+			return () => {
+				items.delete(key);
+			};
+		})
+	};
+}
+/**
+* @param {Effect} effect
+* @param {Effect | null} next
+* @param {Text | Element | Comment} anchor
+*/
+function move(effect, next, anchor) {
+	if (!effect.nodes) return;
+	var node = effect.nodes.start;
+	var end = effect.nodes.end;
+	var dest = next && (next.f & 33554432) === 0 ? next.nodes.start : anchor;
+	while (node !== null) {
+		var next_node = /* @__PURE__ */ get_next_sibling(node);
+		dest.before(node);
+		if (node === end) return;
+		node = next_node;
+	}
+}
+/**
+* @param {EachState} state
+* @param {Effect | null} prev
+* @param {Effect | null} next
+*/
+function link(state, prev, next) {
+	if (prev === null) state.effect.first = next;
+	else prev.next = next;
+	if (next === null) state.effect.last = prev;
+	else next.prev = prev;
+}
+//#endregion
 //#region node_modules/svelte/src/internal/client/dom/blocks/snippet.js
 /** @import { Snippet } from 'svelte' */
 /** @import { TemplateNode } from '#client' */
@@ -4055,6 +4516,33 @@ var IS_CUSTOM_ELEMENT = Symbol("is custom element");
 var IS_HTML = Symbol("is html");
 var LINK_TAG = IS_XHTML ? "link" : "LINK";
 /**
+* The value/checked attribute in the template actually corresponds to the defaultValue property, so we need
+* to remove it upon hydration to avoid a bug when someone resets the form value.
+* @param {HTMLInputElement} input
+* @returns {void}
+*/
+function remove_input_defaults(input) {
+	if (!hydrating) return;
+	var already_removed = false;
+	var remove_defaults = () => {
+		if (already_removed) return;
+		already_removed = true;
+		if (input.hasAttribute("value")) {
+			var value = input.value;
+			set_attribute(input, "value", null);
+			input.value = value;
+		}
+		if (input.hasAttribute("checked")) {
+			var checked = input.checked;
+			set_attribute(input, "checked", null);
+			input.checked = checked;
+		}
+	};
+	input.__on_r = remove_defaults;
+	queue_micro_task(remove_defaults);
+	add_form_reset_listener();
+}
+/**
 * @param {Element} element
 * @param {string} attribute
 * @param {string | null} value
@@ -4109,6 +4597,69 @@ function get_setters(element) {
 * @param {string} value
 */
 function check_src_in_dev_hydration(element, attribute, value) {}
+//#endregion
+//#region node_modules/svelte/src/internal/client/dom/elements/bindings/input.js
+/** @import { Batch } from '../../../reactivity/batch.js' */
+/**
+* @param {HTMLInputElement} input
+* @param {() => unknown} get
+* @param {(value: unknown) => void} set
+* @returns {void}
+*/
+function bind_value(input, get, set = get) {
+	var batches = /* @__PURE__ */ new WeakSet();
+	listen_to_event_and_reset_event(input, "input", async (is_reset) => {
+		/** @type {any} */
+		var value = is_reset ? input.defaultValue : input.value;
+		value = is_numberlike_input(input) ? to_number(value) : value;
+		set(value);
+		if (current_batch !== null) batches.add(current_batch);
+		await tick();
+		if (value !== (value = get())) {
+			var start = input.selectionStart;
+			var end = input.selectionEnd;
+			var length = input.value.length;
+			input.value = value ?? "";
+			if (end !== null) {
+				var new_length = input.value.length;
+				if (start === end && end === length && new_length > length) {
+					input.selectionStart = new_length;
+					input.selectionEnd = new_length;
+				} else {
+					input.selectionStart = start;
+					input.selectionEnd = Math.min(end, new_length);
+				}
+			}
+		}
+	});
+	if (hydrating && input.defaultValue !== input.value || untrack(get) == null && input.value) {
+		set(is_numberlike_input(input) ? to_number(input.value) : input.value);
+		if (current_batch !== null) batches.add(current_batch);
+	}
+	render_effect(() => {
+		var value = get();
+		if (input === document.activeElement) {
+			var batch = async_mode_flag ? previous_batch : current_batch;
+			if (batches.has(batch)) return;
+		}
+		if (is_numberlike_input(input) && value === to_number(input.value)) return;
+		if (input.type === "date" && !value && !input.value) return;
+		if (value !== input.value) input.value = value ?? "";
+	});
+}
+/**
+* @param {HTMLInputElement} input
+*/
+function is_numberlike_input(input) {
+	var type = input.type;
+	return type === "number" || type === "range";
+}
+/**
+* @param {string} value
+*/
+function to_number(value) {
+	return value === "" ? null : +value;
+}
 //#endregion
 //#region node_modules/svelte/src/internal/client/dom/elements/bindings/this.js
 /** @import { ComponentContext, Effect } from '#client' */
@@ -4620,4 +5171,4 @@ function init_update_callbacks(context) {
 	};
 }
 //#endregion
-export { state as A, user_effect as C, first_child as D, child as E, push as F, setContext as I, next as L, writable as M, getContext as N, sibling as O, pop as P, reset as R, template_effect as S, $document as T, get as _, rest_props as a, untrack as b, head as c, if_block as d, set_text as f, text as g, from_html as h, prop as i, user_derived as j, set as k, component as l, comment as m, onMount as n, bind_this as o, append as p, asClassComponent as r, set_attribute as s, index_client_exports as t, snippet as u, settled as v, user_pre_effect as w, effect as x, tick as y };
+export { child as A, setContext as B, tick as C, user_effect as D, template_effect as E, user_derived as F, reset as H, writable as I, getContext as L, sibling as M, set as N, user_pre_effect as O, state as P, pop as R, settled as S, effect as T, next as V, append as _, rest_props as a, text as b, remove_input_defaults as c, component as d, snippet as f, set_text as g, if_block as h, prop as i, first_child as j, $document as k, set_attribute as l, index as m, onMount as n, bind_this as o, each as p, asClassComponent as r, bind_value as s, index_client_exports as t, head as u, comment as v, untrack as w, get as x, from_html as y, push as z };

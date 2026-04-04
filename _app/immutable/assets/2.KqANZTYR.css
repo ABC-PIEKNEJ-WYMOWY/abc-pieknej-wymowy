@@ -1,0 +1,360 @@
+h2.svelte-1hisrib {
+  font-weight: 700;
+  color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8);
+}
+
+section.svelte-1hisrib {
+  background-color: oklch(97% 0 0deg);
+  padding: 0 1.245em;
+  display: block grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  margin-block: clamp(1em, 4vw, 2em);
+}a.svelte-1ei7iww {
+  display: inline flow-root;
+  padding: 0.5rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  border: 2px solid;
+  color: oklch(100% 0 0deg);
+  font-size: 1.25em;
+  background-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-5-out-of-8);
+  border-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-4-out-of-8);
+}
+a.svelte-1ei7iww:hover {
+  background-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-4-out-of-8);
+  border-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8);
+}
+a.svelte-1ei7iww:active {
+  background-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8);
+  border-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-2-out-of-8);
+}header.svelte-wgnsv7 {
+  margin-block: 2em;
+}
+
+h1.svelte-wgnsv7 {
+  color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8);
+  font-weight: 700;
+}
+
+a.svelte-wgnsv7 {
+  display: inline flow-root;
+  padding: 0.5rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  border: 2px solid;
+  color: oklch(100% 0 0deg);
+  font-size: 1.25em;
+  background-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-5-out-of-8);
+  border-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-4-out-of-8);
+}
+a.svelte-wgnsv7:hover {
+  background-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-4-out-of-8);
+  border-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8);
+}
+a.svelte-wgnsv7:active {
+  background-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8);
+  border-color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-2-out-of-8);
+}div.svelte-pmahsl {
+  background-color: oklch(100% 0 0deg);
+  display: block grid;
+  grid-template-columns: min(100%, 40rem);
+  margin: 0 clamp(1em, 4vw, 2em);
+  grid-template-rows: 1fr;
+  justify-content: center;
+}div.svelte-121d5ud {
+  background-color: oklch(95% 0 0deg);
+  display: block grid;
+  grid-template-columns: min(100%, 50rem);
+  grid-template-rows: 1fr;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  border-bottom: 2px solid oklch(90% 0 0deg);
+}
+
+nav.svelte-121d5ud {
+  display: block flex;
+  flex-flow: row wrap;
+  flex-direction: row;
+  gap: 0 1rem;
+  justify-content: space-between;
+}
+
+a.svelte-121d5ud {
+  font-weight: 600;
+  color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8);
+  padding: 1rem;
+  text-decoration: none;
+}
+a.svelte-121d5ud:hover {
+  background-color: oklch(90% 0 0deg);
+}
+a.svelte-121d5ud:active {
+  background-color: oklch(85% 0 0deg);
+}
+
+ul.svelte-121d5ud {
+  display: block flex;
+  flex-flow: row wrap;
+  list-style-type: none;
+  margin-block: 0;
+  padding-inline-start: 0;
+  justify-content: space-between;
+}
+ul.svelte-121d5ud > li:where(.svelte-121d5ud) {
+  display: block flex;
+}div.svelte-ievkcv {
+  display: block grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+  color: oklch(0% 0 0deg);
+  font-family: system-ui;
+  --primary-color-maximal-chroma: 0.161;
+  --count-of-chromas: 3;
+  --count-of-lightnesses: 9;
+  --primary-color-hue: 230deg;
+  --primary-color-with-chroma-0-out-of-2-and-lightness-0-out-of-8: oklch(
+  	calc(100% * 0 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				0 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-0-out-of-2-and-lightness-1-out-of-8: oklch(
+  	calc(100% * 1 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				0 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-0-out-of-2-and-lightness-2-out-of-8: oklch(
+  	calc(100% * 2 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				0 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-0-out-of-2-and-lightness-3-out-of-8: oklch(
+  	calc(100% * 3 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				0 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-0-out-of-2-and-lightness-4-out-of-8: oklch(
+  	calc(100% * 4 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				0 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-0-out-of-2-and-lightness-5-out-of-8: oklch(
+  	calc(100% * 5 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				0 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-0-out-of-2-and-lightness-6-out-of-8: oklch(
+  	calc(100% * 6 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				0 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-0-out-of-2-and-lightness-7-out-of-8: oklch(
+  	calc(100% * 7 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				0 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-0-out-of-2-and-lightness-8-out-of-8: oklch(
+  	calc(100% * 8 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				0 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-1-out-of-2-and-lightness-0-out-of-8: oklch(
+  	calc(100% * 0 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				1 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-1-out-of-2-and-lightness-1-out-of-8: oklch(
+  	calc(100% * 1 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				1 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-1-out-of-2-and-lightness-2-out-of-8: oklch(
+  	calc(100% * 2 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				1 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-1-out-of-2-and-lightness-3-out-of-8: oklch(
+  	calc(100% * 3 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				1 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-1-out-of-2-and-lightness-4-out-of-8: oklch(
+  	calc(100% * 4 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				1 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-1-out-of-2-and-lightness-5-out-of-8: oklch(
+  	calc(100% * 5 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				1 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-1-out-of-2-and-lightness-6-out-of-8: oklch(
+  	calc(100% * 6 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				1 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-1-out-of-2-and-lightness-7-out-of-8: oklch(
+  	calc(100% * 7 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				1 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-1-out-of-2-and-lightness-8-out-of-8: oklch(
+  	calc(100% * 8 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				1 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-2-out-of-2-and-lightness-0-out-of-8: oklch(
+  	calc(100% * 0 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				2 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-2-out-of-2-and-lightness-1-out-of-8: oklch(
+  	calc(100% * 1 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				2 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-2-out-of-2-and-lightness-2-out-of-8: oklch(
+  	calc(100% * 2 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				2 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8: oklch(
+  	calc(100% * 3 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				2 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-2-out-of-2-and-lightness-4-out-of-8: oklch(
+  	calc(100% * 4 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				2 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-2-out-of-2-and-lightness-5-out-of-8: oklch(
+  	calc(100% * 5 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				2 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-2-out-of-2-and-lightness-6-out-of-8: oklch(
+  	calc(100% * 6 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				2 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-2-out-of-2-and-lightness-7-out-of-8: oklch(
+  	calc(100% * 7 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				2 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+  --primary-color-with-chroma-2-out-of-2-and-lightness-8-out-of-8: oklch(
+  	calc(100% * 8 / (var(--count-of-lightnesses) - 1))
+  		calc(
+  			var(--primary-color-maximal-chroma) *
+  				2 /
+  				(var(--count-of-chromas) - 1)
+  		)
+  		var(--primary-color-hue)
+  );
+}

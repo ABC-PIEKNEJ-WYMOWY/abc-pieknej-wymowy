@@ -1,7 +1,7 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["_app/immutable/nodes/0.CMaXdnkM.js","_app/immutable/chunks/Om5-tcGe.js","_app/immutable/chunks/N1gyZNZa.js","_app/immutable/nodes/1.CCB1VA2m.js","_app/immutable/chunks/KjcoWclF.js","_app/immutable/nodes/2.Be503LNf.js","_app/immutable/assets/2.Cux3n-Pp.css"])))=>i.map(i=>d[i]);
-import { A as state, C as user_effect, D as first_child, E as child, F as push, O as sibling, P as pop, R as reset, S as template_effect, _ as get, d as if_block, f as set_text, g as text, h as from_html, i as prop, j as user_derived, k as set, l as component, m as comment, n as onMount, o as bind_this, p as append, r as asClassComponent, w as user_pre_effect, y as tick } from "../chunks/Om5-tcGe.js";
-import { t as __vitePreload } from "../chunks/BMXfM6Mf.js";
-import "../chunks/N1gyZNZa.js";
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["_app/immutable/nodes/0.DMaFTBto.js","_app/immutable/chunks/DWMM-_IK.js","_app/immutable/chunks/3hvZFEVc.js","_app/immutable/nodes/1.Brl9xprw.js","_app/immutable/chunks/CNbdRLCk.js","_app/immutable/nodes/2.BTF83V23.js","_app/immutable/assets/2.KqANZTYR.css","_app/immutable/nodes/3.isSt96ZK.js","_app/immutable/assets/3.DuVCae7D.css"])))=>i.map(i=>d[i]);
+import { A as child, C as tick, D as user_effect, E as template_effect, F as user_derived, H as reset, M as sibling, N as set, O as user_pre_effect, P as state, R as pop, _ as append, b as text, d as component, g as set_text, h as if_block, i as prop, j as first_child, n as onMount, o as bind_this, r as asClassComponent, v as comment, x as get, y as from_html, z as push } from "../chunks/DWMM-_IK.js";
+import { t as __vitePreload } from "../chunks/C8I8W0M4.js";
+import "../chunks/3hvZFEVc.js";
 //#region .svelte-kit/generated/client-optimized/matchers.js
 var matchers = {};
 //#endregion
@@ -125,12 +125,16 @@ var root_default = asClassComponent(Root);
 //#endregion
 //#region .svelte-kit/generated/client-optimized/app.js
 var nodes = [
-	() => __vitePreload(() => import("../nodes/0.CMaXdnkM.js"), __vite__mapDeps([0,1,2])),
-	() => __vitePreload(() => import("../nodes/1.CCB1VA2m.js"), __vite__mapDeps([3,1,4,2])),
-	() => __vitePreload(() => import("../nodes/2.Be503LNf.js"), __vite__mapDeps([5,1,2,6]))
+	() => __vitePreload(() => import("../nodes/0.DMaFTBto.js"), __vite__mapDeps([0,1,2])),
+	() => __vitePreload(() => import("../nodes/1.Brl9xprw.js"), __vite__mapDeps([3,1,4,2])),
+	() => __vitePreload(() => import("../nodes/2.BTF83V23.js"), __vite__mapDeps([5,1,2,6])),
+	() => __vitePreload(() => import("../nodes/3.isSt96ZK.js"), __vite__mapDeps([7,1,2,8]))
 ];
 var server_loads = [0];
-var dictionary = { "/": [-3] };
+var dictionary = {
+	"/": [-3],
+	"/table": [3]
+};
 var hooks = {
 	handleError: (({ error }) => {
 		console.error(error);
