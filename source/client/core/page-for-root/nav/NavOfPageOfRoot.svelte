@@ -14,25 +14,26 @@
 
 <style lang="scss">
 	div {
+		background-color: oklch(95% 0 0deg);
 		display: block grid;
 		grid-template-columns: min(100%, 50rem);
 		grid-template-rows: 1fr;
 		justify-content: center;
 		position: sticky;
 		top: 0;
+		border-bottom: 2px solid oklch(90% 0 0deg);
 	}
 	nav {
-		background-color: oklch(95% 0 0deg);
 		display: block flex;
 		flex-flow: row wrap;
 		flex-direction: row;
 		gap: 0 1rem;
 		justify-content: space-between;
-		border: 2px solid oklch(90% 0 0deg);
 	}
 	a {
+		font-weight: 600;
+		color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8);
 		padding: 1rem;
-		color: inherit;
 		text-decoration: none;
 		&:hover {
 			background-color: oklch(90% 0 0deg);

@@ -2,7 +2,9 @@
 	import Card from "../../../../card/Card.svelte";
 </script>
 
-<Card id="kontakt" title="Kontakt"
+<Card
+	id="kontakt"
+	title="Kontakt"
 	><p
 		>Preferowane zapisy telefoniczne lub SMS. Odpowiadam możliwie najszybciej.</p
 	><p><a href="tel:+48504119112">504 119 112</a></p></Card
@@ -12,19 +14,32 @@
 	a {
 		display: inline flow-root;
 		padding: 0.5rem;
-		color: inherit;
 		text-decoration: none;
 		border-radius: 0.5rem;
-		background-color: oklch(90% 0 0deg);
 		border: 2px solid;
-		border-color: oklch(80% 0 0deg);
+		color: oklch(100% 0 0deg);
+		font-size: 1.25em;
+		background-color: var(
+			--primary-color-with-chroma-2-out-of-2-and-lightness-5-out-of-8
+		);
+		border-color: var(
+			--primary-color-with-chroma-2-out-of-2-and-lightness-4-out-of-8
+		);
 		&:hover {
-			background-color: oklch(85% 0 0deg);
-			border-color: oklch(75% 0 0deg);
+			background-color: var(
+				--primary-color-with-chroma-2-out-of-2-and-lightness-4-out-of-8
+			);
+			border-color: var(
+				--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8
+			);
 		}
 		&:active {
-			background-color: oklch(80% 0 0deg);
-			border-color: oklch(70% 0 0deg);
+			background-color: var(
+				--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8
+			);
+			border-color: var(
+				--primary-color-with-chroma-2-out-of-2-and-lightness-2-out-of-8
+			);
 		}
 	}
 </style>
