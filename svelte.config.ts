@@ -1,7 +1,9 @@
 import type {Config} from "@sveltejs/kit";
+import {vitePreprocess} from "@sveltejs/vite-plugin-svelte";
 const {environmentOfBuilding: environment} = await import(
 	`./building/instances/environment/environmentOfBuilding.ts`
 );
+const vitePreprocessor = vitePreprocess({});
 /* eslint-disable-next-line import-x/no-default-export */
 export default {
 	compilerOptions: {runes: true},
@@ -27,5 +29,6 @@ export default {
 			relative: false,
 		},
 	},
+	preprocess: [vitePreprocessor],
 	vitePlugin: {prebundleSvelteLibraries: false},
 } as const satisfies Config;
