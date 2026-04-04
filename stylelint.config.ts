@@ -9,7 +9,7 @@ export default {
 		"at-rule-disallowed-list": [[]],
 		"at-rule-empty-line-before": [`never`, {except: [], ignore: []}],
 		"at-rule-no-deprecated": [true, {ignoreAtRules: []}],
-		"at-rule-no-unknown": [true, {ignoreAtRules: []}],
+		"at-rule-no-unknown": [true, {ignoreAtRules: [`for`]}],
 		"at-rule-no-vendor-prefix": [true, {ignoreAtRules: []}],
 		"at-rule-prelude-no-invalid": [true, {ignoreAtRules: []}],
 		"at-rule-property-required-list": {},
