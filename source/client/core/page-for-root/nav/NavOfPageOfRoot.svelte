@@ -32,7 +32,7 @@
 	}
 	a {
 		font-weight: 600;
-		color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8);
+		color: var(--primary-color-7);
 		padding: 1rem;
 		text-decoration: none;
 		&:hover {

@@ -14,7 +14,7 @@
 <style lang="scss">
 	h2 {
 		font-weight: 700;
-		color: var(--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8);
+		color: var(--primary-color-7);
 	}
 	section {
 		background-color: oklch(97% 0 0deg);

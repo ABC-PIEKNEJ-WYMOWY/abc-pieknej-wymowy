@@ -19,27 +19,15 @@
 		border: 2px solid;
 		color: oklch(100% 0 0deg);
 		font-size: 1.25em;
-		background-color: var(
-			--primary-color-with-chroma-2-out-of-2-and-lightness-5-out-of-8
-		);
-		border-color: var(
-			--primary-color-with-chroma-2-out-of-2-and-lightness-4-out-of-8
-		);
+		background-color: var(--primary-color-9);
+		border-color: var(--primary-color-8);
 		&:hover {
-			background-color: var(
-				--primary-color-with-chroma-2-out-of-2-and-lightness-4-out-of-8
-			);
-			border-color: var(
-				--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8
-			);
+			background-color: var(--primary-color-8);
+			border-color: var(--primary-color-7);
 		}
 		&:active {
-			background-color: var(
-				--primary-color-with-chroma-2-out-of-2-and-lightness-3-out-of-8
-			);
-			border-color: var(
-				--primary-color-with-chroma-2-out-of-2-and-lightness-2-out-of-8
-			);
+			background-color: var(--primary-color-7);
+			border-color: var(--primary-color-6);
 		}
 	}
 </style>

@@ -2,7 +2,9 @@
 	import Card from "../../../../card/Card.svelte";
 </script>
 
-<Card id="o-mnie" title="O mnie"
+<Card
+	id="o-mnie"
+	title="O mnie"
 	><p
 		>Nazywam się Aleksandra Danylec. Jestem nauczycielką i logopedą. Ukończyłam
 		studia na Uniwersytecie Gdańskim na kierunku Filologia Polska oraz

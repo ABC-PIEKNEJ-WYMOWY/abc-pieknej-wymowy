@@ -1,13 +1,24 @@
 <script lang="ts">
+	import {inGamut, type Oklch} from "culori";
 	const minimumLightness: number = 0;
 	const maximumLightness: number = 1;
 	const minimumChroma: number = 0;
-	const maximumChroma: number = 0.161;
-
-	let tablesCount: number = $state(6);
+	const maximumChroma: number = 0.37;
+	let countofLevelsOfHue: number = $state(1);
 	let firstHue: number = $state(0);
-	let lightnessCount: number = $state(8);
-	let chromaCount: number = $state(9);
+	let countofLevelOfLightness: number = $state(8);
+	let countOfLevelsOfChroma: number = $state(9);
+	type LightnessSliceOfHueSliceOfSpectum = readonly (null | Oklch)[];
+	type HueSliceOfSpectrum = readonly LightnessSliceOfHueSliceOfSpectum[];
+	type Spectrum = readonly HueSliceOfSpectrum[];
+	function computeLightnessSliceOfHueSliceOfSpectrum(
+		hue: number,
+		lightness: number,
+		
+	): LightnessSliceOfHueSliceOfSpectum {
+		
+	}
+		
 
 	const lightnessValues: number[] = $derived.by(() => {
 		if (lightnessCount === 1) {
@@ -18,7 +29,7 @@
 		return Array.from({length: lightnessCount}, (_, index: number) => {
 			const value: number = maximumLightness - index * step;
 			return Number(value.toFixed(3));
-		});
+		}).toReversed();
 	});
 
 	const chromaValues: number[] = $derived.by(() => {
@@ -39,7 +50,69 @@
 			return Number(hue.toFixed(2));
 		});
 	});
-
+	const namesOfGamuts = [`p3`, `rgb`, `a98`, `rec2020`] as const;
+	function checkIfColorIsDisplayableInSomeGamut(color: Oklch): boolean {
+		return namesOfGamuts.some(function (gamut): boolean {
+			return inGamut(gamut)(color);
+		});
+	}
+	function checkIfColorAndVariableIsDisplayableInSomeGamut(
+		color: Oklch,
+		countOfHues: number,
+	): boolean {
+		const deltaOfHue = 360 / countOfHues;
+		const hueOfColor: number = color.h ?? 0;
+		for (
+			let indexOfHue = 0;
+			indexOfHue < countOfHues;
+			indexOfHue = indexOfHue + 1
+		) {
+			const actualHue = (hueOfColor + indexOfHue * deltaOfHue) % 360;
+			const colorWithActualHue = {...color, h: actualHue};
+			if (!checkIfColorIsDisplayableInSomeGamut(colorWithActualHue)) {
+				return false;
+			} else {
+				continue;
+			}
+		}
+		return true;
+	}
+	const findHighestDisplayableChromaForRow = (
+		lightness: number,
+		hue: number,
+	): null | number => {
+		for (
+			let indexOfChroma = chromaValues.length - 1;
+			indexOfChroma >= 0;
+			indexOfChroma = indexOfChroma - 1
+		) {
+			const chroma: number | undefined = chromaValues.at(indexOfChroma);
+			if (chroma === undefined) {
+				continue;
+			}
+			if (
+				checkIfColorAndVariableIsDisplayableInSomeGamut(
+					{c: chroma, h: hue, l: lightness, mode: `oklch`},
+					tablesCount,
+				)
+			) {
+				return chroma;
+			}
+		}
+		return null;
+	};
+	const createCssCodeLinesForTable = (hue: number): string => {
+		return lightnessValues
+			.map((lightness: number, index: number): string => {
+				const highestDisplayableChroma: null | number =
+					findHighestDisplayableChromaForRow(lightness, hue);
+				if (highestDisplayableChroma === null) {
+					throw null;
+				}
+				return `--primary-color-${index.toString(10)}: oklch(${(lightness * 100).toFixed(2)}% ${highestDisplayableChroma.toFixed(3)} ${hue.toFixed(2)}deg);`;
+			})
+			.join(`\n`);
+	};
 	$effect(() => {
 		const dependencies: number =
 			tableHues.length + lightnessValues.length + chromaValues.length;
@@ -52,9 +125,21 @@
 			const lightness: number = Number(tableCell.dataset[`lightness`]);
 			const chroma: number = Number(tableCell.dataset[`chroma`]);
 			const hue: number = Number(tableCell.dataset[`hue`]);
-			const {style: styleOfTableCell}: HTMLTableCellElement = tableCell;
-			styleOfTableCell.backgroundColor = `oklch(${(lightness * 100).toFixed(2)}% ${chroma.toFixed(3)} ${hue.toFixed(2)})`;
-			styleOfTableCell.color = lightness >= 0.62 ? `#111` : `#fafafa`;
+			tableCell.style.color = `transparent`;
+			if (
+				checkIfColorAndVariableIsDisplayableInSomeGamut(
+					{c: chroma, h: hue, l: lightness, mode: `oklch`},
+					tablesCount,
+				)
+			) {
+				tableCell.style.backgroundColor = `oklch(${(lightness * 100).toFixed(2)}% ${chroma.toFixed(3)} ${hue.toFixed(2)})`;
+				// tableCell.style.color =
+				// 	lightness >= 0.62 ? `oklch(0% 0 0deg)` : `oklch(100% 0 0deg)`;
+				return;
+			} else {
+				tableCell.style.backgroundColor = `transparent`;
+				return;
+			}
 		});
 	});
 </script>
@@ -146,6 +231,11 @@
 						</tbody>
 					</table>
 				</div>
+				<textarea
+					readonly
+					rows={lightnessValues.length}
+					spellcheck="false">{createCssCodeLinesForTable(hue)}</textarea
+				>
 			</article>
 		{/each}
 	</section>
@@ -170,13 +260,15 @@
 		font-weight: 600;
 	}
 	#tables-grid {
-		display: block grid;
+		// display: block grid;
+		// gap: 1rem;
+		// grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+		display: block flex;
+		flex-wrap: wrap;
 		gap: 1rem;
-		grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
 	}
 	#tables-grid article {
-		display: block grid;
-		gap: 0.75rem;
+		// display: block grid;
 		padding: 0.9rem;
 		border-radius: 0.75rem;
 		border: 1px solid oklch(82% 0.01 260deg);
@@ -194,15 +286,22 @@
 		overflow-x: auto;
 	}
 	table {
-		width: 100%;
 		border-collapse: collapse;
 		font-size: 0.75rem;
 		text-align: center;
+		width: 0;
+		height: 0;
+		table-layout: fixed;
 		th,
 		td {
 			border: 1px solid oklch(84% 0.008 250deg);
 			padding: 0.35rem;
-			min-width: 3.2rem;
+			width: 3em;
+			height: 3em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-size: 0.5em;
 		}
 		thead th {
 			position: sticky;
@@ -220,5 +319,15 @@
 			white-space: nowrap;
 			font-variant-numeric: tabular-nums;
 		}
+	}
+	textarea {
+		margin-block-start: 0.75rem;
+		width: 100%;
+		resize: vertical;
+		font-family:
+			ui-monospace, "SFMono-Regular", "Menlo", "Monaco", "Consolas",
+			"Liberation Mono", "Courier New", monospace;
+		font-size: 0.75rem;
+		line-height: 1.5;
 	}
 </style>

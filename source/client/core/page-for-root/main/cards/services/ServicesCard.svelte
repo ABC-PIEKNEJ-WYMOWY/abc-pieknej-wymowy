@@ -2,7 +2,9 @@
 	import Card from "../../../../card/Card.svelte";
 </script>
 
-<Card id="uslugi" title="Usługi"
+<Card
+	id="uslugi"
+	title="Usługi"
 	><ul
 		><li>Zajęcia z nauki czytania ze zrozumieniem</li><li
 			>Diagnozy logopedyczne</li
