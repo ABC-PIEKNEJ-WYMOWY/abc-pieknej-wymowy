@@ -7,8 +7,11 @@
 	><p
 		>Znajdziesz tutaj najważniejsze informacje o ofercie, zapisach i formie
 		współpracy.</p
-	><p><a href="#kontakt">Umów się</a></p>
-</header>
+	><nav class="hero-nav"
+		><a href="/o-mnie">O mnie</a><a href="/uslugi">Usługi</a><a
+			href="/nauka-czytania">Nauka czytania</a><a href="/kontakt">Kontakt</a><a
+			href="/cennik">Cennik</a></nav
+	></header>
 
 <style lang="scss">
 	header {
@@ -17,6 +20,12 @@
 	h1 {
 		color: var(--primary-color-7);
 		font-weight: 700;
+	}
+	.hero-nav {
+		display: block flex;
+		flex-flow: row wrap;
+		gap: 0.5rem;
+		margin-top: 1rem;
 	}
 	a {
 		display: inline flow-root;

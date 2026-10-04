@@ -8,6 +8,9 @@
 	let firstHue: number = $state(0);
 	let countofLevelOfLightness: number = $state(8);
 	let countOfLevelsOfChroma: number = $state(9);
+	let tablesCount: number = $state(1);
+	let lightnessCount: number = $state(8);
+	let chromaCount: number = $state(9);
 	type LightnessSliceOfHueSliceOfSpectum = readonly (null | Oklch)[];
 	type HueSliceOfSpectrum = readonly LightnessSliceOfHueSliceOfSpectum[];
 	type Spectrum = readonly HueSliceOfSpectrum[];

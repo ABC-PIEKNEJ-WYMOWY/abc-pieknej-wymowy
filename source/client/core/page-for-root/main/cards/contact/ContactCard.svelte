@@ -17,7 +17,7 @@
 		text-decoration: none;
 		border-radius: 0.5rem;
 		border: 2px solid;
-		color: oklch(100% 0 0deg);
+		color: var(--primary-color-7);
 		font-size: 1.25em;
 		background-color: var(--primary-color-9);
 		border-color: var(--primary-color-8);

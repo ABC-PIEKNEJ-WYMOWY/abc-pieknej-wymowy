@@ -5,6 +5,8 @@
 	><nav
 		><a href="#abc-pieknej-wymowy">ABC pięknej wymowy</a><ul
 			><li><a href="#o-mnie">O mnie</a></li><li><a href="#uslugi">Usługi</a></li
+			><li><a href="/nauka-czytania">Nauka czytania</a></li
+			><li><a href="/wakacyjne-przygotowanie">Wakacyjne przygotowanie</a></li
 			><li><a href="#kontakt">Kontakt</a></li><li
 				><a href="#cennik">Cennik</a></li
 			></ul

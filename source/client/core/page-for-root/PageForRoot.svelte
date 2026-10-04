@@ -1,6 +1,5 @@
 <script lang="ts">
 	import MainOfPageOfRoot from "./main/MainOfPageOfRoot.svelte";
-	import NavOfPageOfRoot from "./nav/NavOfPageOfRoot.svelte";
 </script>
 
 <svelte:head
@@ -9,7 +8,7 @@
 		name="description"
 	/><title>ABC pięknej wymowy | Aleksandra Danylec</title></svelte:head
 ><div
-	><NavOfPageOfRoot></NavOfPageOfRoot><MainOfPageOfRoot></MainOfPageOfRoot></div
+	><MainOfPageOfRoot></MainOfPageOfRoot></div
 >
 
 <style lang="scss">

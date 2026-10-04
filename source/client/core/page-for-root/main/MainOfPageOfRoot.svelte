@@ -1,16 +1,10 @@
 <script lang="ts">
-	import AboutMeCard from "./cards/about-me/AboutMeCard.svelte";
-	import ContactCard from "./cards/contact/ContactCard.svelte";
-	import PricingCard from "./cards/pricing/PricingCard.svelte";
-	import ServicesCard from "./cards/services/ServicesCard.svelte";
 	import HeaderOfMainOfPageOfRoot from "./header/HeaderOfMainOfPageOfRoot.svelte";
 </script>
 
 <div
 	><main
-		><HeaderOfMainOfPageOfRoot></HeaderOfMainOfPageOfRoot><AboutMeCard
-		></AboutMeCard><ServicesCard></ServicesCard><ContactCard
-		></ContactCard><PricingCard></PricingCard></main
+		><HeaderOfMainOfPageOfRoot></HeaderOfMainOfPageOfRoot></main
 	></div
 >
 
