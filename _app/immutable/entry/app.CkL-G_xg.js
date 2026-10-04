@@ -1,7 +1,7 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["_app/immutable/nodes/0.DMaFTBto.js","_app/immutable/chunks/DWMM-_IK.js","_app/immutable/chunks/3hvZFEVc.js","_app/immutable/nodes/1.Brl9xprw.js","_app/immutable/chunks/CNbdRLCk.js","_app/immutable/nodes/2.BTF83V23.js","_app/immutable/assets/2.KqANZTYR.css","_app/immutable/nodes/3.isSt96ZK.js","_app/immutable/assets/3.DuVCae7D.css"])))=>i.map(i=>d[i]);
-import { A as child, C as tick, D as user_effect, E as template_effect, F as user_derived, H as reset, M as sibling, N as set, O as user_pre_effect, P as state, R as pop, _ as append, b as text, d as component, g as set_text, h as if_block, i as prop, j as first_child, n as onMount, o as bind_this, r as asClassComponent, v as comment, x as get, y as from_html, z as push } from "../chunks/DWMM-_IK.js";
-import { t as __vitePreload } from "../chunks/C8I8W0M4.js";
-import "../chunks/3hvZFEVc.js";
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["_app/immutable/nodes/0.BIB6V1lP.js","_app/immutable/chunks/Dn23lfvP.js","_app/immutable/chunks/CDN_62Z6.js","_app/immutable/assets/0.6zffBlUP.css","_app/immutable/nodes/1.BoyhH1ZI.js","_app/immutable/chunks/DA0C3yhC.js","_app/immutable/nodes/2.T_uaVB6e.js","_app/immutable/assets/2.QBkY-_PO.css","_app/immutable/nodes/3.jgSwAlee.js","_app/immutable/assets/3.DGsYK1cf.css","_app/immutable/nodes/4.DU1WEpwF.js","_app/immutable/assets/4.BBdQ3csr.css","_app/immutable/nodes/5.CWJGLtoI.js","_app/immutable/assets/5.B0KASR-0.css","_app/immutable/nodes/6.DyNHTHr0.js","_app/immutable/assets/6.CSuiRnp4.css","_app/immutable/nodes/7.CFl3jRhu.js","_app/immutable/assets/7.C4fEGkXI.css","_app/immutable/nodes/8.Dstle2Gj.js","_app/immutable/assets/8.p-4XIb_s.css"])))=>i.map(i=>d[i]);
+import { B as pop, D as template_effect, F as set, I as state, L as user_derived, M as child, N as first_child, O as user_effect, P as sibling, S as get, U as reset, V as push, _ as set_text, b as from_html, f as component, g as if_block, i as prop, k as user_pre_effect, n as onMount, o as bind_this, r as asClassComponent, v as append, w as tick, x as text, y as comment } from "../chunks/Dn23lfvP.js";
+import { t as __vitePreload } from "../chunks/Bwn52ykm.js";
+import "../chunks/CDN_62Z6.js";
 //#region .svelte-kit/generated/client-optimized/matchers.js
 var matchers = {};
 //#endregion
@@ -125,15 +125,25 @@ var root_default = asClassComponent(Root);
 //#endregion
 //#region .svelte-kit/generated/client-optimized/app.js
 var nodes = [
-	() => __vitePreload(() => import("../nodes/0.DMaFTBto.js"), __vite__mapDeps([0,1,2])),
-	() => __vitePreload(() => import("../nodes/1.Brl9xprw.js"), __vite__mapDeps([3,1,4,2])),
-	() => __vitePreload(() => import("../nodes/2.BTF83V23.js"), __vite__mapDeps([5,1,2,6])),
-	() => __vitePreload(() => import("../nodes/3.isSt96ZK.js"), __vite__mapDeps([7,1,2,8]))
+	() => __vitePreload(() => import("../nodes/0.BIB6V1lP.js"), __vite__mapDeps([0,1,2,3])),
+	() => __vitePreload(() => import("../nodes/1.BoyhH1ZI.js"), __vite__mapDeps([4,1,5,2])),
+	() => __vitePreload(() => import("../nodes/2.T_uaVB6e.js"), __vite__mapDeps([6,1,2,7])),
+	() => __vitePreload(() => import("../nodes/3.jgSwAlee.js"), __vite__mapDeps([8,1,2,9])),
+	() => __vitePreload(() => import("../nodes/4.DU1WEpwF.js"), __vite__mapDeps([10,1,2,11])),
+	() => __vitePreload(() => import("../nodes/5.CWJGLtoI.js"), __vite__mapDeps([12,1,2,13])),
+	() => __vitePreload(() => import("../nodes/6.DyNHTHr0.js"), __vite__mapDeps([14,1,2,15])),
+	() => __vitePreload(() => import("../nodes/7.CFl3jRhu.js"), __vite__mapDeps([16,1,2,17])),
+	() => __vitePreload(() => import("../nodes/8.Dstle2Gj.js"), __vite__mapDeps([18,1,2,19]))
 ];
 var server_loads = [0];
 var dictionary = {
 	"/": [-3],
-	"/table": [3]
+	"/cennik": [3],
+	"/colors": [4],
+	"/kontakt": [5],
+	"/nauka-czytania": [6],
+	"/o-mnie": [7],
+	"/uslugi": [8]
 };
 var hooks = {
 	handleError: (({ error }) => {

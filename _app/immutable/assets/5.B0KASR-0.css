@@ -1,0 +1,35 @@
+main.svelte-1vixm1i {
+  display: block grid;
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.hero.svelte-1vixm1i {
+  text-align: center;
+}
+.hero.svelte-1vixm1i h1:where(.svelte-1vixm1i) {
+  font-size: 2rem;
+  color: var(--primary-color-7);
+}
+
+section.svelte-1vixm1i {
+  background-color: oklch(97% 0 0deg);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+}
+
+.button.svelte-1vixm1i {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color-7);
+  color: oklch(100% 0 0deg);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+.button.svelte-1vixm1i:hover {
+  background-color: var(--primary-color-6);
+}

@@ -1,0 +1,63 @@
+header.svelte-wgnsv7 {
+  margin-block: 2em;
+}
+
+h1.svelte-wgnsv7 {
+  color: var(--primary-color-7);
+  font-weight: 700;
+}
+
+.hero-nav.svelte-wgnsv7 {
+  display: block flex;
+  flex-flow: row wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+a.svelte-wgnsv7 {
+  display: inline flow-root;
+  padding: 0.5rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  border: 2px solid;
+  color: oklch(100% 0 0deg);
+  font-size: 1.25em;
+  background-color: var(--primary-color-9);
+  border-color: var(--primary-color-8);
+}
+a.svelte-wgnsv7:hover {
+  background-color: var(--primary-color-8);
+  border-color: var(--primary-color-7);
+}
+a.svelte-wgnsv7:active {
+  background-color: var(--primary-color-7);
+  border-color: var(--primary-color-6);
+}div.svelte-pmahsl {
+  background-color: oklch(100% 0 0deg);
+  display: block grid;
+  grid-template-columns: min(100%, 40rem);
+  margin: 0 clamp(1em, 4vw, 2em);
+  grid-template-rows: 1fr;
+  justify-content: center;
+}div.svelte-ievkcv {
+  display: block grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+  color: oklch(0% 0 0deg);
+  font-family: system-ui;
+  --primary-color-0: oklch(0% 0 230deg);
+  --primary-color-1: oklch(7.1% 0.016 230deg);
+  --primary-color-2: oklch(14.3% 0.032 230deg);
+  --primary-color-3: oklch(21.4% 0.048 230deg);
+  --primary-color-4: oklch(28.6% 0.064 230deg);
+  --primary-color-5: oklch(35.7% 0.08 230deg);
+  --primary-color-6: oklch(42.9% 0.097 230deg);
+  --primary-color-7: oklch(50% 0.113 230deg);
+  --primary-color-8: oklch(57.1% 0.129 230deg);
+  --primary-color-9: oklch(64.3% 0.145 230deg);
+  --primary-color-10: oklch(71.4% 0.161 230deg);
+  --primary-color-11: oklch(78.6% 0.113 230deg);
+  --primary-color-12: oklch(85.7% 0.064 230deg);
+  --primary-color-13: oklch(92.9% 0.032 230deg);
+  --primary-color-14: oklch(100% 0 230deg);
+}

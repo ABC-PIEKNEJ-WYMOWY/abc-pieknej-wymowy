@@ -1,0 +1,40 @@
+.layout.svelte-3zkj8s {
+  display: block grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+}
+
+.main-nav.svelte-3zkj8s {
+  background-color: oklch(95% 0 0deg);
+  display: block grid;
+  grid-template-columns: min(100%, 50rem);
+  grid-template-rows: 1fr;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  border-bottom: 2px solid oklch(90% 0 0deg);
+  z-index: 100;
+}
+.main-nav.svelte-3zkj8s a:where(.svelte-3zkj8s) {
+  font-weight: 600;
+  color: var(--primary-color-7);
+  padding: 1rem;
+  text-decoration: none;
+}
+.main-nav.svelte-3zkj8s a:where(.svelte-3zkj8s):hover {
+  background-color: oklch(90% 0 0deg);
+}
+.main-nav.svelte-3zkj8s a:where(.svelte-3zkj8s):active {
+  background-color: oklch(85% 0 0deg);
+}
+.main-nav.svelte-3zkj8s ul:where(.svelte-3zkj8s) {
+  display: block flex;
+  flex-flow: row wrap;
+  list-style-type: none;
+  margin-block: 0;
+  padding-inline-start: 0;
+  justify-content: space-between;
+}
+.main-nav.svelte-3zkj8s ul:where(.svelte-3zkj8s) > li:where(.svelte-3zkj8s) {
+  display: block flex;
+}

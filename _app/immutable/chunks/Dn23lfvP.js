@@ -2594,6 +2594,15 @@ function merge_text_nodes(text) {
 }
 //#endregion
 //#region node_modules/svelte/src/internal/client/dom/elements/misc.js
+/**
+* The child of a textarea actually corresponds to the defaultValue property, so we need
+* to remove it upon hydration to avoid a bug when someone resets the form value.
+* @param {HTMLTextAreaElement} dom
+* @returns {void}
+*/
+function remove_textarea_child(dom) {
+	if (hydrating && /* @__PURE__ */ get_first_child(dom) !== null) clear_text_content(dom);
+}
 var listening_to_form_reset = false;
 function add_form_reset_listener() {
 	if (!listening_to_form_reset) {
@@ -4515,6 +4524,7 @@ function head(hash, render_fn) {
 var IS_CUSTOM_ELEMENT = Symbol("is custom element");
 var IS_HTML = Symbol("is html");
 var LINK_TAG = IS_XHTML ? "link" : "LINK";
+var PROGRESS_TAG = IS_XHTML ? "progress" : "PROGRESS";
 /**
 * The value/checked attribute in the template actually corresponds to the defaultValue property, so we need
 * to remove it upon hydration to avoid a bug when someone resets the form value.
@@ -4541,6 +4551,15 @@ function remove_input_defaults(input) {
 	input.__on_r = remove_defaults;
 	queue_micro_task(remove_defaults);
 	add_form_reset_listener();
+}
+/**
+* @param {Element} element
+* @param {any} value
+*/
+function set_value(element, value) {
+	var attributes = get_attributes(element);
+	if (attributes.value === (attributes.value = value ?? void 0) || element.value === value && (value !== 0 || element.nodeName !== PROGRESS_TAG)) return;
+	element.value = value ?? "";
 }
 /**
 * @param {Element} element
@@ -5171,4 +5190,4 @@ function init_update_callbacks(context) {
 	};
 }
 //#endregion
-export { child as A, setContext as B, tick as C, user_effect as D, template_effect as E, user_derived as F, reset as H, writable as I, getContext as L, sibling as M, set as N, user_pre_effect as O, state as P, pop as R, settled as S, effect as T, next as V, append as _, rest_props as a, text as b, remove_input_defaults as c, component as d, snippet as f, set_text as g, if_block as h, prop as i, first_child as j, $document as k, set_attribute as l, index as m, onMount as n, bind_this as o, each as p, asClassComponent as r, bind_value as s, index_client_exports as t, head as u, comment as v, untrack as w, get as x, from_html as y, push as z };
+export { remove_textarea_child as A, pop as B, settled as C, template_effect as D, effect as E, set as F, setContext as H, state as I, user_derived as L, child as M, first_child as N, user_effect as O, sibling as P, writable as R, get as S, untrack as T, reset as U, push as V, set_text as _, rest_props as a, from_html as b, remove_input_defaults as c, head as d, component as f, if_block as g, index as h, prop as i, $document as j, user_pre_effect as k, set_attribute as l, each as m, onMount as n, bind_this as o, snippet as p, asClassComponent as r, bind_value as s, index_client_exports as t, set_value as u, append as v, tick as w, text as x, comment as y, getContext as z };

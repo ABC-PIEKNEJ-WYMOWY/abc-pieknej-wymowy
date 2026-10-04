@@ -1,0 +1,56 @@
+main.svelte-vqe5z7 {
+  display: block grid;
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.hero.svelte-vqe5z7 {
+  text-align: center;
+}
+.hero.svelte-vqe5z7 h1:where(.svelte-vqe5z7) {
+  font-size: 2rem;
+  color: var(--primary-color-7);
+}
+
+.image.svelte-vqe5z7 {
+  max-width: 100%;
+  border-radius: 0.75rem;
+  margin-block: 1rem;
+}
+
+section.svelte-vqe5z7 {
+  background-color: oklch(97% 0 0deg);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+}
+section.svelte-vqe5z7 h2:where(.svelte-vqe5z7) {
+  color: var(--primary-color-7);
+  margin-top: 0;
+}
+
+.content.svelte-vqe5z7 ul:where(.svelte-vqe5z7) {
+  padding-left: 1.2rem;
+}
+.content.svelte-vqe5z7 ul:where(.svelte-vqe5z7) li:where(.svelte-vqe5z7) {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.cta.svelte-vqe5z7 {
+  text-align: center;
+}
+.cta.svelte-vqe5z7 .button:where(.svelte-vqe5z7) {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color-7);
+  color: oklch(100% 0 0deg);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+.cta.svelte-vqe5z7 .button:where(.svelte-vqe5z7):hover {
+  background-color: var(--primary-color-6);
+}

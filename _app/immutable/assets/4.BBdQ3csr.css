@@ -1,0 +1,89 @@
+main.svelte-1xnamiw {
+  display: block grid;
+  gap: 1.25rem;
+  padding: 1rem;
+}
+
+#controls.svelte-1xnamiw {
+  display: block grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: oklch(97% 0.01 250deg);
+}
+
+#controls.svelte-1xnamiw label:where(.svelte-1xnamiw) {
+  display: block grid;
+  gap: 0.4rem;
+  font-weight: 600;
+}
+
+#tables-grid.svelte-1xnamiw {
+  display: block flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#tables-grid.svelte-1xnamiw article:where(.svelte-1xnamiw) {
+  padding: 0.9rem;
+  border-radius: 0.75rem;
+  border: 1px solid oklch(82% 0.01 260deg);
+  background: oklch(99% 0.003 240deg);
+}
+#tables-grid.svelte-1xnamiw article:where(.svelte-1xnamiw) h2:where(.svelte-1xnamiw) {
+  margin: 0;
+}
+#tables-grid.svelte-1xnamiw article:where(.svelte-1xnamiw) p:where(.svelte-1xnamiw) {
+  margin: 0;
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+#tables-grid.svelte-1xnamiw article:where(.svelte-1xnamiw) > div:where(.svelte-1xnamiw) {
+  overflow-x: auto;
+}
+
+table.svelte-1xnamiw {
+  border-collapse: collapse;
+  font-size: 0.75rem;
+  text-align: center;
+  width: 0;
+  height: 0;
+  table-layout: fixed;
+}
+table.svelte-1xnamiw th:where(.svelte-1xnamiw),
+table.svelte-1xnamiw td:where(.svelte-1xnamiw) {
+  border: 1px solid oklch(84% 0.008 250deg);
+  padding: 0.35rem;
+  width: 3em;
+  height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.5em;
+}
+table.svelte-1xnamiw thead:where(.svelte-1xnamiw) th:where(.svelte-1xnamiw) {
+  position: sticky;
+  top: 0;
+  background: oklch(95% 0.008 250deg);
+  z-index: 2;
+}
+table.svelte-1xnamiw tbody:where(.svelte-1xnamiw) th:where(.svelte-1xnamiw) {
+  position: sticky;
+  left: 0;
+  background: oklch(95% 0.008 250deg);
+  z-index: 1;
+}
+table.svelte-1xnamiw td:where(.svelte-1xnamiw) span:where(.svelte-1xnamiw) {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+textarea.svelte-1xnamiw {
+  margin-block-start: 0.75rem;
+  width: 100%;
+  resize: vertical;
+  font-family: ui-monospace, "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
