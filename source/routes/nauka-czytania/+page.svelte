@@ -92,7 +92,7 @@
 			Skontaktuj się z nami, aby umówić się na bezpłatną konsultację i poznać
 			szczegóły zajęć.
 		</p>
-		<a class="button" href="/#kontakt">Skontaktuj się</a>
+		<a class="button" href="/kontakt">Skontaktuj się</a>
 	</section>
 </main>
 
